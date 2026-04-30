@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
     while (fin >> step.timestamp_ms >> step.fl_ticks >> step.fr_ticks >> step.bl_ticks >> step.br_ticks) {
         pos = calcOdometryStep(params, pos, step, prev_step);
         std::cout
-            << step.timestamp_ms << " qqq "
+            << step.timestamp_ms << " "
             << pos.x_m << " "
             << pos.y_m << " "
             << pos.theta_rad
