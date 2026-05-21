@@ -17,3 +17,5 @@ include(GoogleTest)
 # тест
 add_executable(ballistics_tests tests/ballistics_tests.cpp)
 target_link_libraries(ballistics_tests ballistics GTest::gtest_main)
+configure_file(tests/data/test_config.txt ${CMAKE_CURRENT_BINARY_DIR}/data/test_config.txt COPYONLY)
+configure_file(tests/data/incorrect_ammo.txt ${CMAKE_CURRENT_BINARY_DIR}/data/incorrect_ammo.txt COPYONLY)

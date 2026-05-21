@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include <filesystem>
+#include <string>
 
 #include "ballistics.hpp"
 
@@ -13,6 +15,31 @@ Config config = {.isValid = true,
                  .mass = 0.35,
                  .drag = 0.07,
                  .lift = 0.0};
+
+TEST(BallisticsSummary, ReadConfig)
+{
+  std::string testConfigPath = std::filesystem::current_path().append("build/debug/homework_06/data/test_config.txt").string();
+  Config config = read_config(testConfigPath.c_str());
+  EXPECT_TRUE(config.isValid);
+  EXPECT_EQ(config.pos.x, 180);
+  EXPECT_EQ(config.pos.y, 180);
+  EXPECT_EQ(config.zd, 100);
+  EXPECT_EQ(config.target.x, 200);
+  EXPECT_EQ(config.target.y, 200);
+  EXPECT_EQ(config.attackSpeed, 10);
+  EXPECT_EQ(config.accelerationPath, 10);
+  EXPECT_STREQ(config.ammoName, "VOG-17");
+  EXPECT_EQ(config.mass, 0.35);
+  EXPECT_EQ(config.drag, 0.07);
+  EXPECT_EQ(config.lift, 0.0);
+}
+
+TEST(BallisticsSummary, ReadConfigIncorrectAmmo)
+{
+  std::string incorrectAmmoPath = std::filesystem::current_path().append("build/debug/homework_06/data/incorrect_ammo.txt").string();
+  Config config = read_config(incorrectAmmoPath.c_str());
+  EXPECT_FALSE(config.isValid);
+}
 
 TEST(BallisticsSummary, CalculateTimeForValidConfig)
 {

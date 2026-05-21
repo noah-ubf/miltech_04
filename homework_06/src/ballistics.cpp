@@ -24,13 +24,7 @@ auto read_config(const char* filename) -> Config
   input.close();
 
   // NOLINTBEGIN(*-array-to-pointer-decay, *-magic-numbers)
-  if (strcmp(config.ammoName, "none") == 0) {
-    // the simplest check if all data is read (all I could figure out from the lecture)
-    cout << "Error reading data from file" << endl;
-    config.isValid = false;
-    return config;
-  }
-  else if (strcmp(config.ammoName, "VOG-17") == 0) {
+  if (strcmp(config.ammoName, "VOG-17") == 0) {
     config.mass = 0.35;
     config.drag = 0.07;
     config.lift = 0.0;
@@ -58,6 +52,7 @@ auto read_config(const char* filename) -> Config
   else {
     cout << "Error: Unknown ammo name \"" << config.ammoName << "\"" << endl;
     config.isValid = false;
+    return config;
   }
   // NOLINTEND(*-array-to-pointer-decay, *-magic-numbers)
   config.isValid = true;
