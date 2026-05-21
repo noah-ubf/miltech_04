@@ -13,3 +13,7 @@ add_executable(calc_ballistics src/main.cpp)
 target_link_libraries(calc_ballistics PRIVATE ballistics)
 target_compile_options(calc_ballistics PRIVATE -Wall -Wextra -pedantic)
 
+include(GoogleTest)
+# тест
+add_executable(ballistics_tests    tests/ballistics_tests.cpp)
+target_link_libraries(ballistics_tests    ballistics GTest::gtest_main)

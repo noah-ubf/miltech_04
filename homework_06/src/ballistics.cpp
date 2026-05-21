@@ -56,7 +56,12 @@ Config readConfig(const char* filename)
 }
 
 double calculateTime(const Config config)
-{ // Calculating time
+{
+    if (!config.isValid) {
+        cout << "Error: Invalid config" << endl;
+        return -1.;
+    }
+
     double a = config.drag * 9.81 * config.mass - 2 * config.drag * config.drag * config.lift * config.attackSpeed;
     if (a == 0.f) { // a appears in denominator, so it cannot be zero
         cout << "Error: Incorrect a; no solution" << endl;
