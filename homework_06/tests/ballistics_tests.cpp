@@ -21,6 +21,15 @@ TEST(BallisticsSummary, CalculateTimeForValidConfig)
   EXPECT_NEAR(time, expectedTime, 1e-7);
 }
 
+TEST(BallisticsSummary, CalculateTimeForNegativeZD)
+{
+  Config configWithNegativeZD = config;
+  configWithNegativeZD.zd = -100;
+
+  double time = calculate_time(configWithNegativeZD);
+  EXPECT_LT(time, 0.);
+}
+
 TEST(BallisticsSummary, CalculateFireDistanceForValidData)
 {
   double fireDistance = calculate_fire_distance(config, 5.74975819);
@@ -65,4 +74,6 @@ TEST(BallisticsSummary, CalculateFirePointWithMidPoint)
   EXPECT_NEAR(firePoint.x, expectedFirePointX, 1e-7);
   EXPECT_NEAR(firePoint.y, expectedFirePointY, 1e-7);
 }
+
+
 // NOLINTEND(*-magic-numbers)
