@@ -23,6 +23,12 @@ auto read_config(const char* filename) -> Config
     config.accelerationPath >> config.ammoName;
   input.close();
 
+  if (config.zd <=0 || config.attackSpeed <= 0 || config.accelerationPath < 0) {
+    cout << "Error: Incorrect numeric parameters" << endl;
+    config.isValid = false;
+    return config;
+  }
+
   // NOLINTBEGIN(*-array-to-pointer-decay, *-magic-numbers)
   if (strcmp(config.ammoName, "VOG-17") == 0) {
     config.mass = 0.35;
