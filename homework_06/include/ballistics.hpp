@@ -1,5 +1,7 @@
 const double g = 9.81;
 
+const int kAmmoNameLength = 15;  // length of the longest ammo name + 1 for \0
+
 struct Point {
   double x;
   double y;
@@ -12,14 +14,14 @@ struct Config {
   Point target = {0, 0};
   double attackSpeed = 0.;
   double accelerationPath = 0.;
-  char ammo_name[15] = "none";  // size = longest name + 1 for \0 + some extra space just in case
+  char ammoName[kAmmoNameLength] = "none"; // NOLINT(*-avoid-c-arrays)
   double mass = 0.;
   double drag = 0.;
   double lift = 0.;
 };
 
-Config readConfig(const char* filename);
-double calculateTime(Config config);
-double calculateFireDistance(Config config, double flightTime);
-bool calculateFirePoint(Config config, double fireDistance, double flightTime, Point& midPoint, Point& firePoint);
-int saveData(const char* filename, bool needsManeuver, Point midPoint, Point firePoint);
+auto read_config(const char* filename) -> Config;
+auto calculate_time(Config config) -> double;
+auto calculate_fire_distance(Config config, double flight_time) -> double;
+auto calculate_fire_point(Config config, double fire_distance, double flight_time, Point& mid_point, Point& fire_point) -> bool;
+auto save_data(const char* filename, bool needs_maneuver, Point mid_point, Point fire_point) -> int;

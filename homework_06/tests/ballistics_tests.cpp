@@ -2,27 +2,28 @@
 
 #include "ballistics.hpp"
 
+// NOLINTBEGIN(*-magic-numbers)
 Config config = {.isValid = true,
                  .pos = {0, 0},
                  .zd = 100,
                  .target = {200, 200},
                  .attackSpeed = 10,
                  .accelerationPath = 10,
-                 .ammo_name = "VOG-17",
+                 .ammoName = "VOG-17",
                  .mass = 0.35,
                  .drag = 0.07,
                  .lift = 0.0};
 
 TEST(BallisticsSummary, CalculateTimeForValidConfig)
 {
-  double time = calculateTime(config);
+  double time = calculate_time(config);
   double expectedTime = 5.74975819;
   EXPECT_NEAR(time, expectedTime, 1e-7);
 }
 
 TEST(BallisticsSummary, CalculateFireDistanceForValidData)
 {
-  double fireDistance = calculateFireDistance(config, 5.74975819);
+  double fireDistance = calculate_fire_distance(config, 5.74975819);
   double expectedFireDistance = 37.110222;
   EXPECT_NEAR(fireDistance, expectedFireDistance, 1e-7);
 }
@@ -34,7 +35,7 @@ TEST(BallisticsSummary, CalculateFirePointWithoutMidPoint)
   Point midPoint = {0., 0.};
   Point firePoint = {0., 0.};
 
-  bool needMidPoint = calculateFirePoint(config, fireDistance, flightTime, midPoint, firePoint);
+  bool needMidPoint = calculate_fire_point(config, fireDistance, flightTime, midPoint, firePoint);
 
   double expectedFirePointX = 173.75911029;
   double expectedFirePointY = 173.75911029;
@@ -52,7 +53,7 @@ TEST(BallisticsSummary, CalculateFirePointWithMidPoint)
   Point midPoint = {0., 0.};
   Point firePoint = {0., 0.};
 
-  bool needMidPoint = calculateFirePoint(configWithMidPoint, fireDistance, flightTime, midPoint, firePoint);
+  bool needMidPoint = calculate_fire_point(configWithMidPoint, fireDistance, flightTime, midPoint, firePoint);
 
   double expectedFirePointX = 173.75911029;
   double expectedFirePointY = 173.75911029;
@@ -64,3 +65,4 @@ TEST(BallisticsSummary, CalculateFirePointWithMidPoint)
   EXPECT_NEAR(firePoint.x, expectedFirePointX, 1e-7);
   EXPECT_NEAR(firePoint.y, expectedFirePointY, 1e-7);
 }
+// NOLINTEND(*-magic-numbers)
