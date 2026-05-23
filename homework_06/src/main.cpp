@@ -8,11 +8,11 @@
 auto main(int argc, char** argv) -> int
 {
   if (argc != 2) {
-    std::cout << "Usage: " << argv[0] << " <input_file>" << std::endl; // NOLINT(*-pointer-arithmetic)
+    std::cout << "Usage: " << argv[0] << " <input_file>" << std::endl;  // NOLINT(*-pointer-arithmetic)
     return 1;
   }
 
-  Config config = read_config(argv[1]); // NOLINT(*-pointer-arithmetic) - No reason to use std::string
+  Config config = read_config(argv[1]);  // NOLINT(*-pointer-arithmetic) - No reason to use std::string
   if (!config.isValid) {
     return 1;
   }

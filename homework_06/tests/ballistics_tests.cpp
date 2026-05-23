@@ -5,16 +5,16 @@
 #include "ballistics.hpp"
 
 // NOLINTBEGIN(*-magic-numbers)
-Config config = {.isValid = true,
-                 .pos = {0, 0},
-                 .zd = 100,
-                 .target = {200, 200},
-                 .attackSpeed = 10,
-                 .accelerationPath = 10,
-                 .ammoName = "VOG-17",
-                 .mass = 0.35,
-                 .drag = 0.07,
-                 .lift = 0.0};
+const Config config = {.isValid = true,
+                       .pos = {0, 0},
+                       .zd = 100,
+                       .target = {200, 200},
+                       .attackSpeed = 10,
+                       .accelerationPath = 10,
+                       .ammoName = "VOG-17",
+                       .mass = 0.35,
+                       .drag = 0.07,
+                       .lift = 0.0};
 
 TEST(BallisticsSummary, ReadConfig)
 {
@@ -28,7 +28,7 @@ TEST(BallisticsSummary, ReadConfig)
   EXPECT_EQ(config.target.y, 200);
   EXPECT_EQ(config.attackSpeed, 10);
   EXPECT_EQ(config.accelerationPath, 10);
-  EXPECT_STREQ(config.ammoName, "VOG-17");
+  EXPECT_STREQ(config.ammoName, "VOG-17");  // NOLINT(*-array-to-pointer-decay)
   EXPECT_EQ(config.mass, 0.35);
   EXPECT_EQ(config.drag, 0.07);
   EXPECT_EQ(config.lift, 0.0);
@@ -101,6 +101,5 @@ TEST(BallisticsSummary, CalculateFirePointWithMidPoint)
   EXPECT_NEAR(firePoint.x, expectedFirePointX, 1e-7);
   EXPECT_NEAR(firePoint.y, expectedFirePointY, 1e-7);
 }
-
 
 // NOLINTEND(*-magic-numbers)

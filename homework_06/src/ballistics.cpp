@@ -23,7 +23,7 @@ auto read_config(const char* filename) -> Config
     config.accelerationPath >> config.ammoName;
   input.close();
 
-  if (config.zd <=0 || config.attackSpeed <= 0 || config.accelerationPath < 0) {
+  if (config.zd <= 0 || config.attackSpeed <= 0 || config.accelerationPath < 0) {
     cout << "Error: Incorrect numeric parameters" << endl;
     config.isValid = false;
     return config;
@@ -78,13 +78,13 @@ auto calculate_time(const Config config) -> double
     return -1.;
   }
   double b = -3 * g * config.mass * config.mass + 3 * config.drag * config.lift * config.mass * config.attackSpeed;
-  double c = 6 * config.mass * config.mass * config.zd; // NOLINT - prefering to keep constants inline
+  double c = 6 * config.mass * config.mass * config.zd;  // NOLINT - prefering to keep constants inline
   double p = -b * b / (3 * a * a);
   if (p >= 0) {  // inversed p appears as sqrt parameter, so p cannot be positive; p appears in denominator so it cannot be zero
     cout << "Error: Incorrect p; no solution" << endl;
     return -1.;
   }
-  double q = 2 * b * b * b / (27 * a * a * a) + c / a; // NOLINT - prefering to keep constants inline
+  double q = 2 * b * b * b / (27 * a * a * a) + c / a;  // NOLINT - prefering to keep constants inline
   double sqrtP3 = sqrt(-p / 3);
   double temp = 3 * q / (2 * p * sqrtP3);
   if (temp > 1 || temp < -1) {
@@ -138,7 +138,8 @@ auto calculate_fire_distance(const Config config, const double flight_time) -> d
   return fire_distance;
 }
 
-auto calculate_fire_point(const Config config, const double fire_distance, const double flight_time, Point& mid_point, Point& fire_point) -> bool
+auto calculate_fire_point(const Config config, const double fire_distance, const double flight_time, Point& mid_point, Point& fire_point)
+  -> bool
 {
   double distance(0.);
   bool needs_maneuver(false);

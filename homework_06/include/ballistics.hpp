@@ -14,7 +14,7 @@ struct Config {
   Point target = {0, 0};
   double attackSpeed = 0.;
   double accelerationPath = 0.;
-  char ammoName[kAmmoNameLength] = "none"; // NOLINT(*-avoid-c-arrays)
+  char ammoName[kAmmoNameLength] = "none";  // NOLINT(*-avoid-c-arrays)
   double mass = 0.;
   double drag = 0.;
   double lift = 0.;
