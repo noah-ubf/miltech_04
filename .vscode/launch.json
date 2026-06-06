@@ -59,10 +59,10 @@
       "request": "launch",
       "program": "${workspaceFolder}/build/debug/homework_07/calc_ballistics_hw7",
       "args": [
-        "${workspaceFolder}/homework_07/data/config.json",
-        "${workspaceFolder}/homework_07/data/ammo.json",
-        "${workspaceFolder}/homework_07/data/targets.json",
-        "${workspaceFolder}/homework_07/data/simulation.json"
+        "${workspaceFolder}/homework_07/data/1_basic/config.json",
+        "${workspaceFolder}/homework_07/data/1_basic/ammo.json",
+        "${workspaceFolder}/homework_07/data/1_basic/targets.json",
+        "${workspaceFolder}/homework_07/data/1_basic/simulation.json"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

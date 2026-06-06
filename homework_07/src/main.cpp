@@ -8,8 +8,6 @@
 
 using namespace std;
 
-namespace miltech_ballistic {
-
 int main(int argc, char** argv)
 {
     if (argc != 5) {
@@ -79,5 +77,3 @@ int main(int argc, char** argv)
     delete solver;
     return 0;
 }
-
-} // namespace miltech_ballistic

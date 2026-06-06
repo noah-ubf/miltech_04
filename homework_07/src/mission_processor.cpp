@@ -55,7 +55,7 @@ SimStep MissionProcessor::step() {
 
     ++stepNum;
     SimStep prevStep = currentStep;
-    moveDrone();
+    currentStep = moveDrone();
     return prevStep;
 };
 
@@ -72,62 +72,76 @@ void MissionProcessor::reset() {
     targetProvider->setArrayTimeStep(config->getConfig().arrayTimeStep);
 };
 
-void MissionProcessor::moveDrone() {
+SimStep MissionProcessor::moveDrone() {
+    SimStep res;
+    res.targetIdx = currentStep.targetIdx;
+    res.dropPoint = currentStep.dropPoint;
+    res.aimPoint = currentStep.aimPoint;
+    res.predictedTarget = currentStep.predictedTarget;
+    Coord pos = currentStep.pos;
+    DroneState state = currentStep.state;
+    double speed = currentStep.speed;
+    double direction = currentStep.direction;
     Coord& target = currentStep.predictedTarget;
-    Coord dir = { cos(currentStep.direction), sin(currentStep.direction)};
-    double targetDirection = atan2(target.y - currentStep.pos.y, target.x - currentStep.pos.x);
+    Coord dir = { cos(direction), sin(direction)};
+    double targetDirection = atan2(target.y - pos.y, target.x - pos.x);
     double acceleration = config->getConfig().attackSpeed * config->getConfig().attackSpeed / (2 * config->getConfig().accelPath);
-    double distance = (target - currentStep.pos).length();
+    double distance = (target - pos).length();
     if (distance < distance - solver->getFireDistance() - config->getConfig().accelPath) {
         // if it's too close, must move away first
         targetDirection = addAngles(targetDirection, M_PI);
     }
-    double dDir = addAngles(targetDirection, -currentStep.direction);
+    double dDir = addAngles(targetDirection, -direction);
 
     // move the drone according to it's state
-    switch(currentStep.state) {
+    switch(state) {
         case STOPPED:
             // if direction ok, -> ACCELERATING, else -> TURNING
             if (fabs(dDir) <= config->getConfig().turnThreshold) {
-                currentStep.direction = targetDirection;
-                currentStep.state = ACCELERATING;
+                direction = targetDirection;
+                state = ACCELERATING;
             } else {
-                currentStep.state = TURNING;
+                state = TURNING;
             }
             break;
         case ACCELERATING:
-            currentStep.pos = currentStep.pos + dir * currentStep.speed * config->getConfig().simTimeStep;
-            currentStep.speed = currentStep.speed + acceleration * config->getConfig().simTimeStep;
-            if (currentStep.speed >= config->getConfig().attackSpeed) {
-                currentStep.speed = config->getConfig().attackSpeed;
-                currentStep.state = MOVING;
+            pos = pos + dir * speed * config->getConfig().simTimeStep;
+            speed = speed + acceleration * config->getConfig().simTimeStep;
+            if (speed >= config->getConfig().attackSpeed) {
+                speed = config->getConfig().attackSpeed;
+                state = MOVING;
             }
             break;
         case DECELERATING:
-            currentStep.pos = currentStep.pos + dir * currentStep.speed * config->getConfig().simTimeStep;
-            currentStep.speed -= acceleration * config->getConfig().simTimeStep;
-            if (currentStep.speed <= 0) {
-                currentStep.speed = 0;
-                currentStep.state = STOPPED;
+            pos = pos + dir * speed * config->getConfig().simTimeStep;
+            speed = speed - acceleration * config->getConfig().simTimeStep;
+            if (speed <= 0) {
+                speed = 0;
+                state = STOPPED;
             }
             break;
         case TURNING:
             if (dDir >= 0) {
-                currentStep.direction = addAngles(currentStep.direction, config->getConfig().angularSpeed * config->getConfig().simTimeStep);
+                direction = addAngles(direction, config->getConfig().angularSpeed * config->getConfig().simTimeStep);
             } else {
-                currentStep.direction = addAngles(currentStep.direction, -config->getConfig().angularSpeed * config->getConfig().simTimeStep);
+                direction = addAngles(direction, -config->getConfig().angularSpeed * config->getConfig().simTimeStep);
             }
-            dDir = addAngles(targetDirection, -currentStep.direction);
+            dDir = addAngles(targetDirection, -direction);
             if (fabs(dDir) < config->getConfig().turnThreshold) {
-                currentStep.direction = targetDirection;
-                currentStep.state = STOPPED;
+                direction = targetDirection;
+                state = STOPPED;
             }
             break;
         case MOVING:
-            currentStep.pos = currentStep.pos + dir * currentStep.speed * config->getConfig().simTimeStep;
+            pos = pos + dir * speed * config->getConfig().simTimeStep;
             if (fabs(dDir) > config->getConfig().turnThreshold) {
-                currentStep.state = DECELERATING;
+                state = DECELERATING;
             }
             break;
     }
+    res.state = state;
+    res.pos = pos;
+    res.direction = direction;
+    res.speed = speed;
+    return res;
 }
