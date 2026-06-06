@@ -20,7 +20,7 @@ auto read_config(const char* filename) -> Config
   }
 
   input >> config.pos.x >> config.pos.y >> config.zd >> config.target.x >> config.target.y >> config.attackSpeed >>
-    config.accelerationPath >> config.ammoName;
+    config.accelerationPath >> config.ammoName;  // NOLINT(*-array-to-pointer-decay)
   input.close();
 
   if (config.zd <= 0 || config.attackSpeed <= 0 || config.accelerationPath < 0) {
