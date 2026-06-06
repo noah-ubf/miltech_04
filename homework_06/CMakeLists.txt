@@ -16,6 +16,8 @@ target_compile_options(calc_ballistics PRIVATE -Wall -Wextra -pedantic)
 include(GoogleTest)
 # тест
 add_executable(ballistics_tests tests/ballistics_tests.cpp)
+target_compile_definitions(ballistics_tests PRIVATE TEST_DATA_DIR="${CMAKE_CURRENT_BINARY_DIR}/data")
 target_link_libraries(ballistics_tests ballistics GTest::gtest_main)
+gtest_discover_tests(ballistics_tests WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 configure_file(tests/data/test_config.txt ${CMAKE_CURRENT_BINARY_DIR}/data/test_config.txt COPYONLY)
 configure_file(tests/data/incorrect_ammo.txt ${CMAKE_CURRENT_BINARY_DIR}/data/incorrect_ammo.txt COPYONLY)

@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <filesystem>
-#include <string>
 
 #include "ballistics.hpp"
 
@@ -18,7 +17,8 @@ const Config config = {.isValid = true,
 
 TEST(BallisticsSummary, ReadConfig)
 {
-  std::string testConfigPath = std::filesystem::current_path().append("build/debug/homework_06/data/test_config.txt").string();
+  std::filesystem::path testConfigPath = TEST_DATA_DIR;
+  testConfigPath /= "test_config.txt";
   Config config = read_config(testConfigPath.c_str());
   EXPECT_TRUE(config.isValid);
   EXPECT_EQ(config.pos.x, 180);
@@ -36,7 +36,8 @@ TEST(BallisticsSummary, ReadConfig)
 
 TEST(BallisticsSummary, ReadConfigIncorrectAmmo)
 {
-  std::string incorrectAmmoPath = std::filesystem::current_path().append("build/debug/homework_06/data/incorrect_ammo.txt").string();
+  std::filesystem::path incorrectAmmoPath = TEST_DATA_DIR;
+  incorrectAmmoPath /= "incorrect_ammo.txt";
   Config config = read_config(incorrectAmmoPath.c_str());
   EXPECT_FALSE(config.isValid);
 }
