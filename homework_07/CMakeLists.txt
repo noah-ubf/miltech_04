@@ -27,6 +27,9 @@ target_link_libraries(fabric PRIVATE provider)
 add_library(processor src/mission_processor.cpp)
 target_include_directories(processor PUBLIC include)
 
+add_library(simulation src/simulation.cpp)
+target_include_directories(simulation PUBLIC include)
+
 add_executable(calc_ballistics_hw7 src/main.cpp)
 
 target_link_libraries(calc_ballistics_hw7
@@ -35,17 +38,7 @@ target_link_libraries(calc_ballistics_hw7
   PRIVATE loader
   PRIVATE provider
   PRIVATE processor
+  PRIVATE simulation
 )
+
 target_compile_options(calc_ballistics_hw7 PRIVATE -Wall -Wextra -pedantic)
-
-# configure_file(data/ammo.json ${CMAKE_CURRENT_BINARY_DIR}/data/ammo.json COPYONLY)
-# configure_file(data/config.json ${CMAKE_CURRENT_BINARY_DIR}/data/config.json COPYONLY)
-# configure_file(data/targets.json ${CMAKE_CURRENT_BINARY_DIR}/data/targets.json COPYONLY)
-
-
-#include(GoogleTest)
-# тест
-#add_executable(ballistics_tests tests/ballistics_tests.cpp)
-#target_link_libraries(ballistics_tests ballistics GTest::gtest_main)
-#configure_file(tests/data/test_config.txt ${CMAKE_CURRENT_BINARY_DIR}/data/test_config.txt COPYONLY)
-#configure_file(tests/data/incorrect_ammo.txt ${CMAKE_CURRENT_BINARY_DIR}/data/incorrect_ammo.txt COPYONLY)

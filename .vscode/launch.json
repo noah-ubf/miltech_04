@@ -61,7 +61,8 @@
       "args": [
         "${workspaceFolder}/homework_07/data/config.json",
         "${workspaceFolder}/homework_07/data/ammo.json",
-        "${workspaceFolder}/homework_07/data/targets.json"
+        "${workspaceFolder}/homework_07/data/targets.json",
+        "${workspaceFolder}/homework_07/data/simulation.json"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
