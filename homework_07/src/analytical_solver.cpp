@@ -4,6 +4,8 @@
 #include "../include/util.hpp"
 #include "../include/basics/simulation.hpp"
 
+using namespace miltech04;
+
 AnalyticalSolver::AnalyticalSolver(IConfigLoader* configSource) {
     init(configSource);
 };

@@ -4,6 +4,8 @@
 #include "../include/external/json.hpp"
 
 using json = nlohmann::json;
+using namespace miltech04;
+
 
 SimulationResults::SimulationResults(int maxCount) {
     maxStepsCount = maxCount;

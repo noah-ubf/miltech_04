@@ -4,6 +4,8 @@
 #include <cmath>
 #include "../const.hpp"
 
+namespace miltech04 {
+
 struct Coord {
     double x;
     double y;
@@ -52,5 +54,7 @@ struct Coord {
         return result;
     }
 };
+
+} // namespace miltech04
 
 #endif // MILTECH_INCLUDE_BASICS_COORD_HPP

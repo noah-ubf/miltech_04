@@ -6,6 +6,8 @@
 #include "../include/core/json_target_provider.hpp"
 #include "../include/core/analytical_solver.hpp"
 
+using namespace miltech04;
+
 IConfigLoader* createLoader(LoaderType type, const char* configSource, const char* ammoSource) {
     switch (type) {
         case LoaderType::FILE:

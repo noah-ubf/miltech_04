@@ -3,6 +3,8 @@
 
 #include "../basics/target.hpp"
 
+namespace miltech04 {
+
 class ITargetProvider {
 public:
   virtual bool isLoaded() const = 0;
@@ -13,5 +15,7 @@ public:
   virtual Target getNextTarget() = 0;
   virtual ~ITargetProvider() = default;
 };
+  
+} // namespace miltech04
 
 #endif // MILTECH_INCLUDE_INTERFACES_TARGET_PROVIDER_HPP

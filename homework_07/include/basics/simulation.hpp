@@ -4,6 +4,8 @@
 #include "./basics/coord.hpp"
 #include "../include/util.hpp"
 
+namespace miltech04 {
+
 enum DroneState {
     STOPPED,
     ACCELERATING,
@@ -43,5 +45,7 @@ public:
 
     ~SimulationResults();
 };
+
+} // namespace miltech04
 
 #endif // MILTECH_INCLUDE_BASICS_SIMULATION_HPP

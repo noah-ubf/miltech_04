@@ -2,8 +2,9 @@
 #define MILTECH_INCLUDE_INTERFACES_BALLISTIC_SOLVER_HPP
 
 #include "../basics/simulation.hpp"
-#include "../interfaces/config_loader.hpp"
 #include "../basics/target.hpp"
+
+namespace miltech04 {
 
 struct Solution {
   Coord predictedTarget;
@@ -19,5 +20,7 @@ public:
     virtual Solution solve(const SimStep& drone, const Target& target) const = 0;
 
 };
+
+} // namespace miltech04
 
 #endif // MILTECH_INCLUDE_INTERFACES_BALLISTIC_SOLVER_HPP

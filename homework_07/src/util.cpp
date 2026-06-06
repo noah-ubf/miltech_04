@@ -1,4 +1,7 @@
 #include <cmath>
+#include "../include/util.hpp"
+
+namespace miltech04 {
 
 double addAngles(double angle, double increment) {
     // Ensure that the angle lays between M_PI and -M_PI
@@ -8,3 +11,5 @@ double addAngles(double angle, double increment) {
     while(angle < -M_PI) angle += M_2PI;
     return angle;
 }
+
+} // namespace miltech04

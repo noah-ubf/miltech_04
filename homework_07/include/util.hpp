@@ -17,6 +17,10 @@
     const char* STATE_NAMES[5] = {"STOPPED", "ACCELERATING", "DECELERATING", "TURNING", "MOVING"};
 #endif
 
+namespace miltech04 {
+
 double addAngles(double angle, double increment);
+
+} // namespace miltech04
 
 #endif // MILTECH_INCLUDE_UTIL_HPP

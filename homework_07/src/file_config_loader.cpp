@@ -7,6 +7,7 @@
 #include "../include/core/file_config_loader.hpp"
 using json = nlohmann::json;
 using namespace std;
+using namespace miltech04;
 
 int FileConfigLoader::init(const char* configFile, const char* ammoFile) {
     configFileName = new char[strlen(configFile) + 1];
