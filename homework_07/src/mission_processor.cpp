@@ -49,7 +49,6 @@ SimStep MissionProcessor::step() {
             currentStep.targetIdx = target.idx;
             currentStep.dropPoint = solution.firePoint;
             currentStep.predictedTarget = solution.predictedTarget;
-            break;
         }
     }
 

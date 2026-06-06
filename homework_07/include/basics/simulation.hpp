@@ -1,7 +1,7 @@
 #ifndef MILTECH_INCLUDE_BASICS_SIMULATION_HPP
 #define MILTECH_INCLUDE_BASICS_SIMULATION_HPP
 
-#include "coord.hpp"
+#include "./basics/coord.hpp"
 #include "../include/util.hpp"
 
 enum DroneState {
