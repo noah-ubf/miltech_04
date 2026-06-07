@@ -8,6 +8,8 @@
 
 using namespace miltech04;
 
+namespace miltech04 {
+
 IConfigLoader* createLoader(LoaderType type, const char* configSource, const char* ammoSource) {
     switch (type) {
         case LoaderType::FILE:
@@ -34,3 +36,5 @@ IBallisticSolver* createSolver(SolverType type, IConfigLoader* configLoader) {
             return nullptr;
     }
 };
+
+} // namespace miltech04
