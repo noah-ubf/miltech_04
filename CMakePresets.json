@@ -7,6 +7,26 @@
   },
   "configurePresets": [
     {
+      "name": "release",
+      "displayName": "Release",
+      "description": "Release build для занять блоку 2: оптимізований код без символів.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "release-with-debug-info",
+      "displayName": "Release with Debug Info",
+      "description": "Release build для занять блоку 2: оптимізований код з символами для GDB.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/release-with-debug-info",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
       "name": "debug",
       "displayName": "Debug",
       "description": "Debug build для занять блоку 2: символи для GDB і зрозуміла структура build/debug.",
@@ -29,6 +49,18 @@
     }
   ],
   "buildPresets": [
+    {
+      "name": "release",
+      "displayName": "Build Release",
+      "description": "Зібрати release preset після configure.",
+      "configurePreset": "release"
+    },
+    {
+      "name": "release-with-debug-info",
+      "displayName": "Build Release with Debug Info",
+      "description": "Зібрати release-with-debug-info preset після configure.",
+      "configurePreset": "release-with-debug-info"
+    },
     {
       "name": "debug",
       "displayName": "Build Debug",
