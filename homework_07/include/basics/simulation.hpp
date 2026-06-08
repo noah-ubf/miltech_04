@@ -1,6 +1,7 @@
 #ifndef MILTECH_INCLUDE_BASICS_SIMULATION_HPP
 #define MILTECH_INCLUDE_BASICS_SIMULATION_HPP
 
+#include <string>
 #include "./basics/coord.hpp"
 #include "../include/util.hpp"
 
@@ -41,7 +42,7 @@ public:
         return true;
     }
 
-    bool save(char* filename);
+    bool save(const std::string& filename);
 
     ~SimulationResults();
 };

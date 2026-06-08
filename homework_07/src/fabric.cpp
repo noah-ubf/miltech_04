@@ -10,7 +10,7 @@ using namespace miltech04;
 
 namespace miltech04 {
 
-IConfigLoader* createLoader(LoaderType type, const char* configSource, const char* ammoSource) {
+IConfigLoader* createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource) {
     switch (type) {
         case LoaderType::FILE:
             return new FileConfigLoader(configSource, ammoSource);
@@ -19,7 +19,7 @@ IConfigLoader* createLoader(LoaderType type, const char* configSource, const cha
     }
 }
 
-ITargetProvider* createProvider(ProviderType type, const char* targetsSource) {
+ITargetProvider* createProvider(const ProviderType type, const std::string& targetsSource) {
     switch (type) {
         case ProviderType::JSON:
             return new JsonTargetProvider(targetsSource);
@@ -28,7 +28,7 @@ ITargetProvider* createProvider(ProviderType type, const char* targetsSource) {
     }
 }
 
-IBallisticSolver* createSolver(SolverType type, IConfigLoader* configLoader) {
+IBallisticSolver* createSolver(const SolverType type, IConfigLoader* configLoader) {
     switch (type) {
         case SolverType::ANALYTICAL:
             return new AnalyticalSolver(configLoader);

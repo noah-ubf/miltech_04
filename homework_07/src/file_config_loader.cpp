@@ -9,21 +9,17 @@ using json = nlohmann::json;
 using namespace std;
 using namespace miltech04;
 
-int FileConfigLoader::init(const char* configFile, const char* ammoFile) {
-    configFileName = new char[strlen(configFile) + 1];
-    ammoFileName = new char[strlen(ammoFile) + 1];
-    strcpy(configFileName, configFile);
-    strcpy(ammoFileName, ammoFile);
+int FileConfigLoader::init(const std::string& configFile, const std::string& ammoFile) {
+    configFileName = configFile;
+    ammoFileName = ammoFile;
     return 0;
 };
 
-FileConfigLoader::FileConfigLoader(const char* configFile, const char* ammoFile) {
+FileConfigLoader::FileConfigLoader(const std::string& configFile, const std::string& ammoFile) {
     init(configFile, ammoFile);
 };
 
 FileConfigLoader::~FileConfigLoader() {
-    delete[] configFileName;
-    delete[] ammoFileName;
 };
 
 bool FileConfigLoader::isLoaded() const {
@@ -52,7 +48,7 @@ bool FileConfigLoader::load() {
     droneConfig.simTimeStep   = j["simulation"]["timeStep"];
     droneConfig.hitRadius     = j["simulation"]["hitRadius"];
 
-    strncpy(ammo.name, j["ammo"].get<std::string>().c_str(), 31);
+    ammo.name = j["ammo"].get<std::string>();
     fin.close();
 
     std::ifstream finAmmo(ammoFileName);
@@ -66,7 +62,7 @@ bool FileConfigLoader::load() {
     
     int ammoSize = am.size();
     for (int i = 0; i < ammoSize; ++i) {
-        if (strcmp(ammo.name, am[i]["name"].get<std::string>().c_str()) == 0) {
+        if (ammo.name == am[i]["name"].get<std::string>()) {
             ammo.mass = am[i]["mass"];
             ammo.drag = am[i]["drag"];
             ammo.lift = am[i]["lift"];

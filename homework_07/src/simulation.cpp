@@ -17,7 +17,7 @@ SimulationResults::~SimulationResults() {
     delete[] steps;
 }
 
-bool SimulationResults::save(char* filename) {
+bool SimulationResults::save(const std::string& filename) {
     json out;
     out["totalSteps"] = stepCount;
     out["steps"] = json::array();

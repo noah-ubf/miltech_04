@@ -1,4 +1,5 @@
 #include <fstream>
+#include <string>
 #include "../include/core/json_target_provider.hpp"
 #include "../include/util.hpp"
 #include "../include/external/json.hpp"
@@ -6,7 +7,7 @@ using json = nlohmann::json;
 
 using namespace miltech04;
 
-JsonTargetProvider::JsonTargetProvider(const char* fileName) {
+JsonTargetProvider::JsonTargetProvider(const std::string& fileName) {
     load(fileName);
 };
 
@@ -18,7 +19,7 @@ JsonTargetProvider::~JsonTargetProvider() {
     delete[] targets;
 };
 
-void JsonTargetProvider::load(const char* fileName) {
+void JsonTargetProvider::load(const std::string& fileName) {
   std::ifstream ft(fileName);
     if (!ft.is_open()) {
         LOG("Error: Unable to open targets file");

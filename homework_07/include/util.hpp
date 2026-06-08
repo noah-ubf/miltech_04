@@ -14,7 +14,7 @@
 #endif
 
 #ifdef ENABLE_DEBUG
-    const char* STATE_NAMES[5] = {"STOPPED", "ACCELERATING", "DECELERATING", "TURNING", "MOVING"};
+    const std::string STATE_NAMES[5] = {"STOPPED", "ACCELERATING", "DECELERATING", "TURNING", "MOVING"};
 #endif
 
 namespace miltech04 {
