@@ -31,18 +31,8 @@ class SimulationResults {
     SimStep* steps;
 public:
     SimulationResults(int maxCount);
-
-    bool push(const SimStep& step) {
-        if (stepCount >= maxStepsCount) {
-            LOG("Error: Simulation results exceeded maximum count");
-            return false;
-        }
-        steps[stepCount++] = step;
-        return true;
-    }
-
+    bool push(const SimStep& step);
     bool save(char* filename);
-
     ~SimulationResults();
 };
 

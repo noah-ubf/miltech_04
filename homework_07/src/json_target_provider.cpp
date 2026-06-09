@@ -1,5 +1,5 @@
 #include <fstream>
-#include "../include/core/json_target_provider.hpp"
+#include "../include/classes/json_target_provider.hpp"
 #include "../include/util.hpp"
 #include "../include/external/json.hpp"
 using json = nlohmann::json;

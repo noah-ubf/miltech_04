@@ -17,6 +17,15 @@ SimulationResults::~SimulationResults() {
     delete[] steps;
 }
 
+bool SimulationResults::push(const SimStep& step) {
+    if (stepCount >= maxStepsCount) {
+        LOG("Error: Simulation results exceeded maximum count");
+        return false;
+    }
+    steps[stepCount++] = step;
+    return true;
+}
+
 bool SimulationResults::save(char* filename) {
     json out;
     out["totalSteps"] = stepCount;

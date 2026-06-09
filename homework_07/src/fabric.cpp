@@ -2,9 +2,9 @@
 #include "../include/interfaces/config_loader.hpp"
 #include "../include/interfaces/target_provider.hpp"
 #include "../include/interfaces/ballistic_solver.hpp"
-#include "../include/core/file_config_loader.hpp"
-#include "../include/core/json_target_provider.hpp"
-#include "../include/core/analytical_solver.hpp"
+#include "../include/classes/file_config_loader.hpp"
+#include "../include/classes/json_target_provider.hpp"
+#include "../include/classes/analytical_solver.hpp"
 
 using namespace miltech04;
 
