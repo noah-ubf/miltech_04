@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "../include/core/analytical_solver.hpp"
+#include "../include/classes/analytical_solver.hpp"
 #include "../include/util.hpp"
 #include "../include/basics/simulation.hpp"
 

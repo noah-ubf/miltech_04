@@ -4,7 +4,7 @@
 #include "../include/util.hpp"
 #include "../include/external/json.hpp"
 #include "../include/basics/coord.hpp"
-#include "../include/core/file_config_loader.hpp"
+#include "../include/classes/file_config_loader.hpp"
 using json = nlohmann::json;
 using namespace std;
 using namespace miltech04;
