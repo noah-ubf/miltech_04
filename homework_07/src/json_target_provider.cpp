@@ -11,14 +11,6 @@ JsonTargetProvider::JsonTargetProvider(const std::string& fileName) {
     load(fileName);
 };
 
-JsonTargetProvider::~JsonTargetProvider() {
-    if (!loaded) return;
-    for (int i = 0; i < targetCount; i++) {
-        delete targets[i];
-    }
-    delete[] targets;
-};
-
 void JsonTargetProvider::load(const std::string& fileName) {
   std::ifstream ft(fileName);
     if (!ft.is_open()) {
@@ -31,9 +23,9 @@ void JsonTargetProvider::load(const std::string& fileName) {
     targetCount = jt["targetCount"];
     stepCount = jt["timeSteps"];
  
-    targets = new Coord*[targetCount];
+    targets.resize(targetCount);
     for (int i = 0; i < targetCount; i++) {
-        targets[i] = new Coord[stepCount];
+        targets[i].resize(stepCount);
         for (int j = 0; j < stepCount; j++) {
             targets[i][j].x = jt["targets"][i]["positions"][j]["x"];
             targets[i][j].y = jt["targets"][i]["positions"][j]["y"];

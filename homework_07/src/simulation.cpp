@@ -9,20 +9,22 @@ using namespace miltech04;
 
 SimulationResults::SimulationResults(int maxCount) {
     maxStepsCount = maxCount;
-    stepCount = 0;
-    steps = new SimStep[maxCount];
 }
 
-SimulationResults::~SimulationResults() {
-    delete[] steps;
+bool SimulationResults::push(const SimStep& step) {
+    if (steps.size() >= maxStepsCount) {
+        LOG("Error: Maximum steps count reached");
+        return false;
+    }
+    steps.push_back(step);
+    return true;
 }
 
 bool SimulationResults::save(const std::string& filename) {
     json out;
-    out["totalSteps"] = stepCount;
+    out["totalSteps"] = steps.size();
     out["steps"] = json::array();
-    for (int i = 0; i < stepCount; i++) {
-        SimStep s = steps[i];
+    for (const auto& s : steps) {
         json step;
         step["position"]        = {{"x", s.pos.x}, {"y", s.pos.y}};
         step["direction"]       = s.direction;
