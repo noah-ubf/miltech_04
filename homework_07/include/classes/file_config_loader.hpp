@@ -10,22 +10,22 @@ namespace miltech04 {
 
 class FileConfigLoader: public IConfigLoader {
     bool loaded;
-    char* configFileName;
-    char* ammoFileName;
+    std::string configFileName;
+    std::string ammoFileName;
     DroneConfig droneConfig;
     AmmoParams ammo;
 
-    int init(const char* configFile, const char* ammoFile);
+    int init(const std::string& configFile, const std::string& ammoFile);
     
 public:
     FileConfigLoader();
-    FileConfigLoader(const char* configFile);
-    FileConfigLoader(const char* configFile, const char* ammoFile);
+    FileConfigLoader(const std::string& configFile);
+    FileConfigLoader(const std::string& configFile, const std::string& ammoFile);
     virtual bool load() override;
     virtual bool isLoaded() const override;
     virtual DroneConfig getConfig() const override;
     virtual AmmoParams getAmmoParams() const override;
-    virtual ~FileConfigLoader() override;
+    virtual ~FileConfigLoader() override = default;
 };
 
 } // namespace miltech04

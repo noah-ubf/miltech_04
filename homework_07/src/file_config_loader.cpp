@@ -19,9 +19,6 @@ FileConfigLoader::FileConfigLoader(const std::string& configFile, const std::str
     init(configFile, ammoFile);
 };
 
-FileConfigLoader::~FileConfigLoader() {
-};
-
 bool FileConfigLoader::isLoaded() const {
     return loaded;
 }
