@@ -61,15 +61,26 @@ bool FileConfigLoader::load() {
     finAmmo >> am;
     
     int ammoSize = am.size();
+
+    // The previous implementation was better because it never needed additional data structures.
+    // Adding a map nevertheless just for practice.
+    std::map<std::string, AmmoParams> ammoMap = {};
     for (int i = 0; i < ammoSize; ++i) {
-        if (ammo.name == am[i]["name"].get<std::string>()) {
-            ammo.mass = am[i]["mass"];
-            ammo.drag = am[i]["drag"];
-            ammo.lift = am[i]["lift"];
-            break;
-        }
+        AmmoParams params;
+        params.mass = am[i]["mass"];
+        params.drag = am[i]["drag"];
+        params.lift = am[i]["lift"];
+        ammoMap[am[i]["name"].get<std::string>()] = params;
     }
     finAmmo.close();
+
+    if (ammoMap.find(ammo.name) != ammoMap.end()) {
+        ammo = ammoMap[ammo.name];
+    } else {
+        LOG("Error: Ammo type not found in ammo.json file");
+        loaded = false;
+        return false;
+    }
     loaded = true;
     return true;
 };
