@@ -2,9 +2,9 @@
 #define MILTECH_INCLUDE_FABRIC_HPP
 
 #include <string>
-#include "interfaces/config_loader.hpp"
-#include "interfaces/target_provider.hpp"
-#include "interfaces/ballistic_solver.hpp"
+#include "../interfaces/config_loader.hpp"
+#include "../interfaces/target_provider.hpp"
+#include "../interfaces/ballistic_solver.hpp"
 
 namespace miltech04 {
 

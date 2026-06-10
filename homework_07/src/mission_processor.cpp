@@ -1,4 +1,4 @@
-#include "../include/classes/mission_processor.hpp"
+#include "../include/mission_processor.hpp"
 #include "../include/interfaces/config_loader.hpp"
 #include "../include/interfaces/ballistic_solver.hpp"
 #include "../include/const.hpp"

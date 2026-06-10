@@ -2,13 +2,12 @@
 #include <cstring>
 #include <cmath>
 #include "../include/util.hpp"
-#include "../include/fabric.hpp"
+#include "../include/config/fabric.hpp"
 #include "../include/interfaces/config_loader.hpp"
 #include "../include/interfaces/target_provider.hpp"
 #include "../include/interfaces/ballistic_solver.hpp"
-#include "../include/classes/mission_processor.hpp"
+#include "../include/mission_processor.hpp"
 #include "../include/basics/simulation.hpp"
-#include "../include/fabric.hpp"
 
 using namespace std;
 using namespace miltech04;
