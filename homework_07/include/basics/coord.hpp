@@ -2,7 +2,7 @@
 #define MILTECH_INCLUDE_BASICS_COORD_HPP
 
 #include <cmath>
-#include "../const.hpp"
+#include "./const.hpp"
 
 namespace miltech04 {
 

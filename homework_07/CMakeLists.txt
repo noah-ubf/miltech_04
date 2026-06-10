@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_library(util src/util.cpp)
+add_library(util src/basics/util.cpp)
 target_include_directories(util PUBLIC include)
 
 add_library(solver src/solvers/analytical_solver.cpp)
@@ -27,7 +27,7 @@ target_link_libraries(fabric PRIVATE provider)
 add_library(processor src/mission_processor.cpp)
 target_include_directories(processor PUBLIC include)
 
-add_library(simulation src/simulation.cpp)
+add_library(simulation src/basics/simulation.cpp)
 target_include_directories(simulation PUBLIC include)
 
 add_executable(calc_ballistics_hw7 src/main.cpp)

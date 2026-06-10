@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include "../include/solvers/analytical_solver.hpp"
-#include "../include/util.hpp"
-#include "../include/basics/simulation.hpp"
+#include "../../include/solvers/analytical_solver.hpp"
+#include "../../include/basics/util.hpp"
+#include "../../include/basics/simulation.hpp"
 
 using namespace miltech04;
 

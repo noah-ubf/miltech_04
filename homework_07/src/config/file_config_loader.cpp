@@ -1,10 +1,10 @@
 #include <fstream>
 #include <cstring>
 #include <cmath>
-#include "../include/util.hpp"
-#include "../include/external/json.hpp"
-#include "../include/basics/coord.hpp"
-#include "../include/config/file_config_loader.hpp"
+#include "../../include/basics/util.hpp"
+#include "../../include/external/json.hpp"
+#include "../../include/basics/coord.hpp"
+#include "../../include/config/file_config_loader.hpp"
 using json = nlohmann::json;
 using namespace std;
 using namespace miltech04;
