@@ -1,11 +1,13 @@
 #ifndef MILTECH_INCLUDE_CLASSES_ANALYTICAL_SOLVER_HPP
 #define MILTECH_INCLUDE_CLASSES_ANALYTICAL_SOLVER_HPP
 
-struct Coord;
-struct Target;
+#include <memory>
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/config_loader.hpp"
 #include "basics/simulation.hpp"
+
+struct Coord;
+struct Target;
 
 namespace miltech04 {
 
@@ -13,7 +15,7 @@ class AnalyticalSolver : public IBallisticSolver {
     IConfigLoader* configSource;
     double flightTime;
     double hDist;
-    void init(IConfigLoader* configSource);
+    void init();
     double calcFlightTime();
     double calcFireDistance();
     Coord calcPredictedTarget(const Coord& targetPos, const Coord& targetV) const ;

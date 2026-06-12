@@ -1,6 +1,7 @@
 #ifndef MILTECH_INCLUDE_CLASSES_MISSION_PROCESSOR_HPP
 #define MILTECH_INCLUDE_CLASSES_MISSION_PROCESSOR_HPP
 
+#include <memory>
 #include "interfaces/config_loader.hpp"
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/target_provider.hpp"

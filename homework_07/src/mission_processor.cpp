@@ -5,6 +5,7 @@
 #include "basics/util.hpp"
 #include "basics/simulation.hpp"
 
+#include <memory>
 using namespace miltech04;
 
 MissionProcessor::MissionProcessor(IConfigLoader* configSource, IBallisticSolver* ballisticSolver, ITargetProvider* targets) {

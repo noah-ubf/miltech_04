@@ -19,29 +19,26 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    IConfigLoader* configLoader = createLoader(LoaderType::FILE, argv[1], argv[2]);
+    std::unique_ptr<IConfigLoader> configLoader = createLoader(LoaderType::FILE, argv[1], argv[2]);
     if (configLoader == nullptr) {
         LOG("Error: Failed to create config loader");
         return 1;
     }
 
-    ITargetProvider* targetProvider = createProvider(ProviderType::JSON, argv[3]);
+    std::unique_ptr<ITargetProvider> targetProvider = createProvider(ProviderType::JSON, argv[3]);
     if (targetProvider == nullptr) {
         LOG("Error: Failed to create target provider");
-        delete configLoader;
         return 1;
     }
 
-    IBallisticSolver* solver = createSolver(SolverType::ANALYTICAL, configLoader);
+    std::unique_ptr<IBallisticSolver> solver = createSolver(SolverType::ANALYTICAL, configLoader);
     if (solver == nullptr) {
         LOG("Error: Failed to create ballistic solver");
-        delete configLoader;
-        delete targetProvider;
         return 1;
     }
 
     SimulationResults simulation(MAX_STEPS);
-    MissionProcessor processor(configLoader, solver, targetProvider);
+    MissionProcessor processor(configLoader.get(), solver.get(), targetProvider.get());
 
     while (processor.hasNext()) {
         if (!simulation.push(processor.step())) break;
@@ -51,14 +48,8 @@ int main(int argc, char** argv)
 
     if (!simulation.save(argv[4])) {
         LOG("Failed to save simulation steps");
-        delete configLoader;
-        delete targetProvider;
-        delete solver;
         return 1;
     }
 
-    delete configLoader;
-    delete targetProvider;
-    delete solver;
     return 0;
 }

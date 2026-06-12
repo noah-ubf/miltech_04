@@ -2,6 +2,7 @@
 #define MILTECH_INCLUDE_FACTORY_HPP
 
 #include <string>
+#include <memory>
 #include "interfaces/config_loader.hpp"
 #include "interfaces/target_provider.hpp"
 #include "interfaces/ballistic_solver.hpp"
@@ -12,9 +13,9 @@ enum class SolverType   { ANALYTICAL };
 enum class ProviderType { JSON };
 enum class LoaderType   { FILE };
  
-IBallisticSolver* createSolver(const SolverType type, IConfigLoader* configLoader);
-ITargetProvider*  createProvider(const ProviderType type, const std::string& targetsSource);
-IConfigLoader*    createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource);
+std::unique_ptr<IBallisticSolver> createSolver(const SolverType type, std::unique_ptr<IConfigLoader>& configLoader);
+std::unique_ptr<ITargetProvider>  createProvider(const ProviderType type, const std::string& targetsSource);
+std::unique_ptr<IConfigLoader>    createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource);
 
 } // namespace miltech04
 

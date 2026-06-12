@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include <memory>
 #include "solvers/analytical_solver.hpp"
 #include "basics/util.hpp"
 #include "basics/simulation.hpp"
@@ -7,11 +8,11 @@
 using namespace miltech04;
 
 AnalyticalSolver::AnalyticalSolver(IConfigLoader* configSource) {
-    init(configSource);
+    this->configSource = configSource;
+    init();
 };
 
-void AnalyticalSolver::init(IConfigLoader* configSource) {
-    this->configSource = configSource;
+void AnalyticalSolver::init() {
     flightTime = calcFlightTime();
     if (flightTime < 0) {
         LOG("Error: Incorrect flight time; no solution");
