@@ -31,7 +31,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    std::unique_ptr<IBallisticSolver> solver = createSolver(SolverType::ANALYTICAL, configLoader);
+    std::unique_ptr<IBallisticSolver> solver = createSolver(SolverType::ANALYTICAL, configLoader.get());
     if (solver == nullptr) {
         LOG("Error: Failed to create ballistic solver");
         return 1;

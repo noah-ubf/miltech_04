@@ -10,54 +10,51 @@ using namespace miltech04;
 
 namespace miltech04 {
 
-IConfigLoader* createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource) {
-    IConfigLoader* loader = nullptr;
+std::unique_ptr<IConfigLoader> createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource) {
+    std::unique_ptr<IConfigLoader> loader = nullptr;
     switch (type) {
         case LoaderType::FILE:
-            loader = new FileConfigLoader(configSource, ammoSource);
+            loader = std::unique_ptr<IConfigLoader>(new FileConfigLoader(configSource, ammoSource));
             break;
         default:
             return nullptr;
     }
  
     if (!loader->load()) {
-        delete loader;
         return nullptr;
     }
  
     return loader;
 }
 
-ITargetProvider* createProvider(const ProviderType type, const std::string& targetsSource) {
-    ITargetProvider* provider = nullptr;
+std::unique_ptr<ITargetProvider> createProvider(const ProviderType type, const std::string& targetsSource) {
+    std::unique_ptr<ITargetProvider> provider = nullptr;
     switch (type) {
         case ProviderType::JSON:
-            provider = new JsonTargetProvider(targetsSource);
+            provider = std::unique_ptr<ITargetProvider>(new JsonTargetProvider(targetsSource));
             break;
         default:
             return nullptr;
     }
 
     if (!provider->isLoaded()) {
-        delete provider;
         return nullptr;
     }
 
     return provider;
 }
 
-IBallisticSolver* createSolver(const SolverType type, IConfigLoader* configLoader) {
-    IBallisticSolver* solver = nullptr;
+std::unique_ptr<IBallisticSolver> createSolver(const SolverType type, IConfigLoader* configLoader) {
+    std::unique_ptr<IBallisticSolver> solver = nullptr;
     switch (type) {
         case SolverType::ANALYTICAL:
-            solver = new AnalyticalSolver(configLoader);
+            solver = std::unique_ptr<IBallisticSolver>(new AnalyticalSolver(configLoader));
             break;
         default:
             return nullptr;
     }
 
     if (!solver->isValid()) {
-        delete solver;
         return nullptr;
     }
 
