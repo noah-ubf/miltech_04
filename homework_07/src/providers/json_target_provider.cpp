@@ -1,8 +1,8 @@
 #include <fstream>
 #include <string>
-#include "../include/providers/json_target_provider.hpp"
-#include "../include/basics/util.hpp"
-#include "../include/external/json.hpp"
+#include "providers/json_target_provider.hpp"
+#include "basics/util.hpp"
+#include "external/json.hpp"
 using json = nlohmann::json;
 
 using namespace miltech04;

@@ -1,8 +1,8 @@
 #ifndef MILTECH_INCLUDE_INTERFACES_BALLISTIC_SOLVER_HPP
 #define MILTECH_INCLUDE_INTERFACES_BALLISTIC_SOLVER_HPP
 
-#include "../basics/simulation.hpp"
-#include "../basics/target.hpp"
+#include "basics/simulation.hpp"
+#include "basics/target.hpp"
 
 namespace miltech04 {
 

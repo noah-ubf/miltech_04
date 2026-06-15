@@ -2,9 +2,9 @@
 #define MILTECH_INCLUDE_CLASSES_FILE_CONFIG_LOADER_HPP
 
 #include <string>
-#include "../basics/drone_config.hpp"
-#include "../basics/ammo.hpp"
-#include "../interfaces/config_loader.hpp"
+#include "basics/drone_config.hpp"
+#include "basics/ammo.hpp"
+#include "interfaces/config_loader.hpp"
 
 namespace miltech04 {
 

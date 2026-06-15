@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "./basics/coord.hpp"
+#include "basics/coord.hpp"
 
 namespace miltech04 {
 

@@ -1,10 +1,10 @@
-#ifndef MILTECH_INCLUDE_FABRIC_HPP
-#define MILTECH_INCLUDE_FABRIC_HPP
+#ifndef MILTECH_INCLUDE_FACTORY_HPP
+#define MILTECH_INCLUDE_FACTORY_HPP
 
 #include <string>
-#include "../interfaces/config_loader.hpp"
-#include "../interfaces/target_provider.hpp"
-#include "../interfaces/ballistic_solver.hpp"
+#include "interfaces/config_loader.hpp"
+#include "interfaces/target_provider.hpp"
+#include "interfaces/ballistic_solver.hpp"
 
 namespace miltech04 {
 
@@ -18,4 +18,4 @@ IConfigLoader*    createLoader(const LoaderType type, const std::string& configS
 
 } // namespace miltech04
 
-#endif // MILTECH_INCLUDE_FABRIC_HPP
+#endif // MILTECH_INCLUDE_FACTORY_HPP

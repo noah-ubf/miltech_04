@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "../interfaces/target_provider.hpp"
-#include "../basics/target.hpp"
+#include "interfaces/target_provider.hpp"
+#include "basics/target.hpp"
 
 namespace miltech04 {
 

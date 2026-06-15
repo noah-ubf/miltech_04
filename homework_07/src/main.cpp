@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
-#include "../include/basics/util.hpp"
-#include "../include/config/fabric.hpp"
-#include "../include/interfaces/config_loader.hpp"
-#include "../include/interfaces/target_provider.hpp"
-#include "../include/interfaces/ballistic_solver.hpp"
-#include "../include/mission_processor.hpp"
-#include "../include/basics/simulation.hpp"
+#include "basics/util.hpp"
+#include "config/factory.hpp"
+#include "interfaces/config_loader.hpp"
+#include "interfaces/target_provider.hpp"
+#include "interfaces/ballistic_solver.hpp"
+#include "mission_processor.hpp"
+#include "basics/simulation.hpp"
 
 using namespace std;
 using namespace miltech04;

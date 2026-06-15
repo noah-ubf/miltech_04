@@ -1,7 +1,7 @@
 #include <fstream>
-#include "../../include/basics/simulation.hpp"
-#include "../../include/basics/util.hpp"
-#include "../../include/external/json.hpp"
+#include "basics/simulation.hpp"
+#include "basics/util.hpp"
+#include "external/json.hpp"
 
 using json = nlohmann::json;
 using namespace miltech04;

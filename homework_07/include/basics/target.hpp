@@ -1,7 +1,7 @@
 #ifndef MILTECH_INCLUDE_BASICS_TARGET_HPP
 #define MILTECH_INCLUDE_BASICS_TARGET_HPP
 
-#include "coord.hpp"
+#include "basics/coord.hpp"
 
 namespace miltech04 {
 

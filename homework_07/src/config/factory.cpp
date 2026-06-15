@@ -1,10 +1,10 @@
-#include "../include/config/fabric.hpp"
-#include "../include/interfaces/config_loader.hpp"
-#include "../include/interfaces/target_provider.hpp"
-#include "../include/interfaces/ballistic_solver.hpp"
-#include "../include/config/file_config_loader.hpp"
-#include "../include/providers/json_target_provider.hpp"
-#include "../include/solvers/analytical_solver.hpp"
+#include "config/factory.hpp"
+#include "interfaces/config_loader.hpp"
+#include "interfaces/target_provider.hpp"
+#include "interfaces/ballistic_solver.hpp"
+#include "config/file_config_loader.hpp"
+#include "providers/json_target_provider.hpp"
+#include "solvers/analytical_solver.hpp"
 
 using namespace miltech04;
 

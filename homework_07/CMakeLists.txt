@@ -18,11 +18,11 @@ target_include_directories(loader PUBLIC include)
 add_library(provider src/providers/json_target_provider.cpp)
 target_include_directories(provider PUBLIC include)
 
-add_library(fabric src/config/fabric.cpp)
-target_include_directories(fabric PUBLIC include)
-target_link_libraries(fabric PRIVATE loader)
-target_link_libraries(fabric PRIVATE solver)
-target_link_libraries(fabric PRIVATE provider)
+add_library(factory src/config/factory.cpp)
+target_include_directories(factory PUBLIC include)
+target_link_libraries(factory PRIVATE loader)
+target_link_libraries(factory PRIVATE solver)
+target_link_libraries(factory PRIVATE provider)
 
 add_library(processor src/mission_processor.cpp)
 target_include_directories(processor PUBLIC include)
@@ -34,7 +34,7 @@ add_executable(calc_ballistics_hw7 src/main.cpp)
 
 target_link_libraries(calc_ballistics_hw7
   PRIVATE solver
-  PRIVATE fabric
+  PRIVATE factory
   PRIVATE loader
   PRIVATE provider
   PRIVATE processor
