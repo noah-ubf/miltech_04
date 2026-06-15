@@ -1,7 +1,8 @@
 #ifndef MILTECH_INCLUDE_CLASSES_ANALYTICAL_SOLVER_HPP
 #define MILTECH_INCLUDE_CLASSES_ANALYTICAL_SOLVER_HPP
 
-#include "basics/coord.hpp"
+struct Coord;
+struct Target;
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/config_loader.hpp"
 #include "basics/simulation.hpp"

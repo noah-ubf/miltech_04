@@ -11,30 +11,57 @@ using namespace miltech04;
 namespace miltech04 {
 
 IConfigLoader* createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource) {
+    IConfigLoader* loader = nullptr;
     switch (type) {
         case LoaderType::FILE:
-            return new FileConfigLoader(configSource, ammoSource);
+            loader = new FileConfigLoader(configSource, ammoSource);
+            break;
         default:
             return nullptr;
     }
+ 
+    if (!loader->load()) {
+        delete loader;
+        return nullptr;
+    }
+ 
+    return loader;
 }
 
 ITargetProvider* createProvider(const ProviderType type, const std::string& targetsSource) {
+    ITargetProvider* provider = nullptr;
     switch (type) {
         case ProviderType::JSON:
-            return new JsonTargetProvider(targetsSource);
+            provider = new JsonTargetProvider(targetsSource);
+            break;
         default:
             return nullptr;
     }
+
+    if (!provider->isLoaded()) {
+        delete provider;
+        return nullptr;
+    }
+
+    return provider;
 }
 
 IBallisticSolver* createSolver(const SolverType type, IConfigLoader* configLoader) {
+    IBallisticSolver* solver = nullptr;
     switch (type) {
         case SolverType::ANALYTICAL:
-            return new AnalyticalSolver(configLoader);
+            solver = new AnalyticalSolver(configLoader);
+            break;
         default:
             return nullptr;
     }
+
+    if (!solver->isValid()) {
+        delete solver;
+        return nullptr;
+    }
+
+    return solver;
 };
 
 } // namespace miltech04

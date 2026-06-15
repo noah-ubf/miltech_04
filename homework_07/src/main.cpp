@@ -25,21 +25,10 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    if (!configLoader->load()) {
-        delete configLoader;
-        return 1;
-    }
-
     ITargetProvider* targetProvider = createProvider(ProviderType::JSON, argv[3]);
     if (targetProvider == nullptr) {
         LOG("Error: Failed to create target provider");
         delete configLoader;
-        return 1;
-    }
-
-    if (!targetProvider->isLoaded()) {
-        delete configLoader;
-        delete targetProvider;
         return 1;
     }
 
@@ -48,14 +37,6 @@ int main(int argc, char** argv)
         LOG("Error: Failed to create ballistic solver");
         delete configLoader;
         delete targetProvider;
-        return 1;
-    }
-
-    if (!solver->isValid()) {
-        LOG("Error: Ballistic solver is not valid");
-        delete configLoader;
-        delete targetProvider;
-        delete solver;
         return 1;
     }
 
