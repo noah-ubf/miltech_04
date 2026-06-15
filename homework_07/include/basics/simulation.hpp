@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "basics/coord.hpp"
+#include "util.hpp"
 
 namespace miltech04 {
 
