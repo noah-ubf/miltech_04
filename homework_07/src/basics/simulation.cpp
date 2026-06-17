@@ -1,4 +1,7 @@
 #include <fstream>
+#include "basics/drone.hpp"
+#include "basics/coord.hpp"
+#include "basics/sim_step.hpp"
 #include "basics/simulation.hpp"
 #include "basics/util.hpp"
 #include "external/json.hpp"
@@ -11,12 +14,21 @@ SimulationResults::SimulationResults(int maxCount) {
     maxStepsCount = maxCount;
 }
 
-bool SimulationResults::push(const SimStep& step) {
+bool SimulationResults::push(const Drone& step) {
     if (steps.size() >= maxStepsCount) {
         LOG("Error: Maximum steps count reached");
         return false;
     }
-    steps.push_back(step);
+    SimStep item = {};
+    item.pos = step.pos;
+    item.direction = step.direction;
+    item.state = step.state;
+    item.targetIdx = step.targetIdx;
+    item.dropPoint = step.dropPoint;
+    item.aimPoint = step.aimPoint;
+    item.predictedTarget = step.predictedTarget;
+
+    steps.push_back(item);
     return true;
 }
 

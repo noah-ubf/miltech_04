@@ -1,14 +1,13 @@
 #include <cmath>
 
-#include <memory>
 #include "solvers/analytical_solver.hpp"
 #include "basics/util.hpp"
-#include "basics/simulation.hpp"
+#include "basics/drone.hpp"
 
 using namespace miltech04;
 
-AnalyticalSolver::AnalyticalSolver(IConfigLoader* configSource) {
-    this->configSource = configSource;
+AnalyticalSolver::AnalyticalSolver(IConfigLoader* configSource, std::string param) {
+    config = configSource;
     init();
 };
 
@@ -25,16 +24,12 @@ bool AnalyticalSolver::isValid() {
     return flightTime > 0 && hDist > 0;
 };
 
-double AnalyticalSolver::getFireDistance() {
-    return hDist;
-};
-
 double AnalyticalSolver::calcFlightTime() {
-    const double attackSpeed = configSource->getConfig().attackSpeed;
-    const double altitude = configSource->getConfig().altitude;
-    const double mass = configSource->getAmmoParams().mass;
-    const double drag = configSource->getAmmoParams().drag;
-    const double lift = configSource->getAmmoParams().lift;
+    const double attackSpeed = config->getConfig().attackSpeed;
+    const double altitude = config->getConfig().altitude;
+    const double mass = config->getAmmoParams().mass;
+    const double drag = config->getAmmoParams().drag;
+    const double lift = config->getAmmoParams().lift;
 
 
     double a = drag * g * mass - 2 * drag * drag * lift * attackSpeed;
@@ -61,10 +56,10 @@ double AnalyticalSolver::calcFlightTime() {
 };
 
 double AnalyticalSolver::calcFireDistance() {
-    const double attackSpeed = configSource->getConfig().attackSpeed;
-    const double mass = configSource->getAmmoParams().mass;
-    const double drag = configSource->getAmmoParams().drag;
-    const double lift = configSource->getAmmoParams().lift;
+    const double attackSpeed = config->getConfig().attackSpeed;
+    const double mass = config->getAmmoParams().mass;
+    const double drag = config->getAmmoParams().drag;
+    const double lift = config->getAmmoParams().lift;
     // helper variables to reduce repeated multiplications
     // and make the final formula more concise:
     double m2 = mass * mass;
@@ -95,88 +90,16 @@ double AnalyticalSolver::calcFireDistance() {
     return hDist;
 };
 
-Solution AnalyticalSolver::solve(const SimStep& drone, const Target& target) const {
+Solution AnalyticalSolver::solve(const Drone& drone, const Target& target) const {
     Solution result;
-    const double totalTime0 = getTimeToFirePoint(drone, target.pos);
+    Coord dir = { cos(drone.direction), sin(drone.direction)};
+    result.aimPoint = drone.pos + dir * hDist;
+    const double totalTime0 = drone.getTimeToFirePoint(config, target.pos);
     Coord predicted = target.pos + target.velocity * (totalTime0 + flightTime);
-    result.timeToFire = getTimeToFirePoint(drone, predicted);
+    result.timeToFire = drone.getTimeToFirePoint(config, predicted);
     Coord delta = predicted - drone.pos;
     result.firePoint = predicted - delta.normalize() * hDist;
     result.predictedTarget = target.pos + target.velocity * flightTime;
+    result.fireDistance = hDist;
     return result;
 };
-
-double AnalyticalSolver::getTimeToFirePointFromStopped(const SimStep& drone, const Coord& target) const {
-    const double attackSpeed = configSource->getConfig().attackSpeed;
-    const double accelPath = configSource->getConfig().accelPath;
-    const double angularSpeed = configSource->getConfig().angularSpeed;
-
-    double targetDirection = atan2(target.y - drone.pos.y, target.x - drone.pos.x);
-    double dDir = addAngles(targetDirection, -drone.direction);
-    double acceleration = attackSpeed * attackSpeed / (2 * accelPath);
-    double accelTime = attackSpeed / acceleration;
-    double distance = (target - drone.pos).length();
-
-    if (distance >= hDist + accelPath) { // turn and go
-        double turnTime = fabs(dDir) / angularSpeed;
-        return turnTime + accelTime + (distance - hDist - accelPath) / attackSpeed;
-    } else { // need to move away, turn back and go
-        double turnAwayTime = (M_PI - fabs(dDir)) / angularSpeed;
-        double turnBackTime = M_PI / angularSpeed;
-        return turnAwayTime + 2 * accelTime + turnBackTime + (accelPath + hDist - distance) / attackSpeed;
-    }
-}
-
-double AnalyticalSolver::getTimeToFirePoint(const SimStep& drone, const Coord target) const {
-    const double attackSpeed = configSource->getConfig().attackSpeed;
-    const double accelPath = configSource->getConfig().accelPath;
-    const double angularSpeed = configSource->getConfig().angularSpeed;
-    const double turnThreshold = configSource->getConfig().turnThreshold;
-
-    double acceleration = attackSpeed * attackSpeed / (2 * accelPath);
-    SimStep step = drone;
-    Coord pos = drone.pos;
-    Coord dir = Coord{ cos(drone.direction), sin(drone.direction) };
-
-    switch (drone.state) {
-        case ACCELERATING: { // accelerate, decelerate, go from stopped state
-            double accelPath = 0.5 * (attackSpeed * attackSpeed - drone.speed * drone.speed) / acceleration;
-            double accelDecelTime = (attackSpeed - drone.speed) / acceleration + attackSpeed / acceleration;
-            step.pos = pos + dir * (accelPath + accelPath);
-            return accelDecelTime + getTimeToFirePointFromStopped(step, target);
-            break;
-        }
-        case MOVING: {
-            double distance = (target - pos).length();
-            double targetDirection = atan2(target.y - drone.pos.y, target.x - drone.pos.x);
-            double dDir = addAngles(targetDirection, -drone.direction);
-            if (fabs(dDir) <= turnThreshold) {
-                if (distance >= hDist) { // if the drone is already moving in the right direction, just calculate time to target
-                    return (distance - hDist) / attackSpeed;
-                } else { // need to move to the target + flight distance, decelerate, go from stopped state
-                    step.pos = pos + dir * (distance + hDist + accelPath);
-                    double moveTime = (distance + hDist) / attackSpeed;
-                    double decelTime = attackSpeed / acceleration;
-                    return moveTime + decelTime + getTimeToFirePointFromStopped(step, target);
-                }
-            } else { // decelerate, go from stopped state
-                step.pos = pos + dir * accelPath;
-                double decelTime = attackSpeed / acceleration;
-                return decelTime + getTimeToFirePointFromStopped(step, target);
-            } 
-            break;
-        }
-        case DECELERATING: { // decelerate, turn, accelerate, move
-            double decelPath = 0.5 * drone.speed * drone.speed / acceleration;
-            double decelTime = drone.speed / acceleration;
-            step.pos = pos + dir * decelPath;
-            return decelTime + getTimeToFirePointFromStopped(step, target);
-            break;
-        }
-        case STOPPED:
-        case TURNING: {
-            return getTimeToFirePointFromStopped(step, target);
-            break;
-        }
-    }
-}

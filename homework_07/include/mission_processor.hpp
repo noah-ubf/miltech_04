@@ -1,11 +1,10 @@
 #ifndef MILTECH_INCLUDE_CLASSES_MISSION_PROCESSOR_HPP
 #define MILTECH_INCLUDE_CLASSES_MISSION_PROCESSOR_HPP
 
-#include <memory>
 #include "interfaces/config_loader.hpp"
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/target_provider.hpp"
-#include "basics/simulation.hpp"
+#include "basics/drone.hpp"
 
 namespace miltech04 {
 
@@ -14,8 +13,8 @@ class MissionProcessor {
     IConfigLoader* config;
     ITargetProvider* targetProvider;
     int stepNum = 0;
-    SimStep currentStep;
-    SimStep moveDrone();
+    Drone currentStep;
+    Drone moveDrone();
 public:
     MissionProcessor(IConfigLoader* configSource, IBallisticSolver* ballisticSolver, ITargetProvider* targets);
     virtual ~MissionProcessor() = default;
@@ -23,7 +22,7 @@ public:
     virtual void setTargetProvider(ITargetProvider* provider);
     virtual void changeSolver(IBallisticSolver* ballisticSolver);
     virtual bool hasNext();
-    virtual SimStep step();
+    virtual Drone step();
     virtual void reset();
 };
 

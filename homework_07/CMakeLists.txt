@@ -8,9 +8,18 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_library(util src/basics/util.cpp)
 target_include_directories(util PUBLIC include)
 
+add_library(drone src/basics/drone.cpp)
+target_include_directories(drone PUBLIC include)
+
 add_library(solver src/solvers/analytical_solver.cpp)
 target_include_directories(solver PUBLIC include)
 target_link_libraries(solver PRIVATE util)
+target_link_libraries(solver PRIVATE drone)
+
+add_library(table_solver src/solvers/ballistic_table_solver.cpp)
+target_include_directories(table_solver PUBLIC include)
+target_link_libraries(table_solver PRIVATE util)
+target_link_libraries(table_solver PRIVATE drone)
 
 add_library(loader src/config/file_config_loader.cpp)
 target_include_directories(loader PUBLIC include)
@@ -22,11 +31,12 @@ add_library(factory src/config/factory.cpp)
 target_include_directories(factory PUBLIC include)
 target_link_libraries(factory PRIVATE loader)
 target_link_libraries(factory PRIVATE solver)
+target_link_libraries(factory PRIVATE table_solver)
 target_link_libraries(factory PRIVATE provider)
 
 add_library(processor src/mission_processor.cpp)
 target_include_directories(processor PUBLIC include)
-
+target_link_libraries(processor PRIVATE drone)
 add_library(simulation src/basics/simulation.cpp)
 target_include_directories(simulation PUBLIC include)
 
@@ -34,10 +44,12 @@ add_executable(calc_ballistics_hw7 src/main.cpp)
 
 target_link_libraries(calc_ballistics_hw7
   PRIVATE solver
+  PRIVATE table_solver
+  PRIVATE processor
+  PRIVATE drone
   PRIVATE factory
   PRIVATE loader
   PRIVATE provider
-  PRIVATE processor
   PRIVATE simulation
 )
 

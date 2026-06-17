@@ -14,8 +14,8 @@ using namespace miltech04;
 
 int main(int argc, char** argv)
 {
-    if (argc != 5) {
-        std::cout << "Usage: " << argv[0] << " <config_file> <ammo_file> <targets_file> <output_file>" << std::endl;  // NOLINT(*-pointer-arithmetic)
+    if (argc != 5 && argc != 6) {
+        std::cout << "Usage: " << argv[0] << " <config_file> <ammo_file> <targets_file> <output_file> [solver_param]" << std::endl;  // NOLINT(*-pointer-arithmetic)
         return 1;
     }
 
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    std::unique_ptr<IBallisticSolver> solver = createSolver(SolverType::ANALYTICAL, configLoader.get());
+    std::unique_ptr<IBallisticSolver> solver = createSolver(SolverType::ANALYTICAL, configLoader.get(), argc == 6 ? argv[5] : "");
     if (solver == nullptr) {
         LOG("Error: Failed to create ballistic solver");
         return 1;

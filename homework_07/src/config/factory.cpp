@@ -5,6 +5,7 @@
 #include "config/file_config_loader.hpp"
 #include "providers/json_target_provider.hpp"
 #include "solvers/analytical_solver.hpp"
+#include "solvers/ballistic_table_solver.hpp"
 
 using namespace miltech04;
 
@@ -24,7 +25,7 @@ std::unique_ptr<IConfigLoader> createLoader(const LoaderType type, const std::st
         return nullptr;
     }
  
-    return loader;
+    return std::move(loader);
 }
 
 std::unique_ptr<ITargetProvider> createProvider(const ProviderType type, const std::string& targetsSource) {
@@ -41,14 +42,17 @@ std::unique_ptr<ITargetProvider> createProvider(const ProviderType type, const s
         return nullptr;
     }
 
-    return provider;
+    return std::move(provider);
 }
 
-std::unique_ptr<IBallisticSolver> createSolver(const SolverType type, IConfigLoader* configLoader) {
+std::unique_ptr<IBallisticSolver> createSolver(const SolverType type, IConfigLoader* configLoader, const std::string& param) {
     std::unique_ptr<IBallisticSolver> solver = nullptr;
     switch (type) {
         case SolverType::ANALYTICAL:
-            solver = std::unique_ptr<IBallisticSolver>(new AnalyticalSolver(configLoader));
+            solver = std::unique_ptr<IBallisticSolver>(new AnalyticalSolver(configLoader, param));
+            break;
+        case SolverType::TABLE:
+            solver = std::unique_ptr<IBallisticSolver>(new BallisticTableSolver(configLoader, param));
             break;
         default:
             return nullptr;
@@ -58,7 +62,7 @@ std::unique_ptr<IBallisticSolver> createSolver(const SolverType type, IConfigLoa
         return nullptr;
     }
 
-    return solver;
+    return std::move(solver);
 };
 
 } // namespace miltech04

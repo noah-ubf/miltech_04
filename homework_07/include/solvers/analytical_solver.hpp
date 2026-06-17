@@ -1,10 +1,11 @@
 #ifndef MILTECH_INCLUDE_CLASSES_ANALYTICAL_SOLVER_HPP
 #define MILTECH_INCLUDE_CLASSES_ANALYTICAL_SOLVER_HPP
 
-#include <memory>
+#include <string>
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/config_loader.hpp"
-#include "basics/simulation.hpp"
+#include "basics/drone.hpp"
+#include "basics/target.hpp"
 
 struct Coord;
 struct Target;
@@ -12,21 +13,18 @@ struct Target;
 namespace miltech04 {
 
 class AnalyticalSolver : public IBallisticSolver {
-    IConfigLoader* configSource;
+    IConfigLoader* config;
     double flightTime;
     double hDist;
     void init();
     double calcFlightTime();
     double calcFireDistance();
     Coord calcPredictedTarget(const Coord& targetPos, const Coord& targetV) const ;
-    double getTimeToFirePointFromStopped(const SimStep& drone, const Coord& target) const;
-    double getTimeToFirePoint(const SimStep& drone, const Coord target) const;
 
 public:
-    AnalyticalSolver(IConfigLoader* configSource);
+    AnalyticalSolver(IConfigLoader* configSource, std::string param);
     virtual bool isValid() override;
-    virtual double getFireDistance() override;
-    virtual Solution solve(const SimStep& drone, const Target& target) const override;
+    virtual Solution solve(const Drone& drone, const Target& target) const override;
     virtual ~AnalyticalSolver() override = default;
 };
 

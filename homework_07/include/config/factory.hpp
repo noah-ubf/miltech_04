@@ -9,11 +9,11 @@
 
 namespace miltech04 {
 
-enum class SolverType   { ANALYTICAL };
+enum class SolverType   { ANALYTICAL, TABLE };
 enum class ProviderType { JSON };
 enum class LoaderType   { FILE };
  
-std::unique_ptr<IBallisticSolver> createSolver(const SolverType type, IConfigLoader* configLoader);
+std::unique_ptr<IBallisticSolver> createSolver(const SolverType type, IConfigLoader* configLoader, const std::string& param);
 std::unique_ptr<ITargetProvider>  createProvider(const ProviderType type, const std::string& targetsSource);
 std::unique_ptr<IConfigLoader>    createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource);
 
