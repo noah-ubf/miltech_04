@@ -16,6 +16,8 @@ int main(int argc, char** argv)
 {
     if (argc != 5 && argc != 6) {
         std::cout << "Usage: " << argv[0] << " <config_file> <ammo_file> <targets_file> <output_file> [solver_param]" << std::endl;  // NOLINT(*-pointer-arithmetic)
+        std::cout << "If [solver_param] is provided, the table-based solver will be used." << std::endl;
+        std::cout << "If [solver_param] is empty, the analytical solver will be used." << std::endl;
         return 1;
     }
 
@@ -31,7 +33,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    std::unique_ptr<IBallisticSolver> solver = createSolver(SolverType::ANALYTICAL, configLoader.get(), argc == 6 ? argv[5] : "");
+    std::unique_ptr<IBallisticSolver> solver = createSolver(argc == 6 ? SolverType::TABLE : SolverType::ANALYTICAL, configLoader.get(), argc == 6 ? argv[5] : "");
     if (solver == nullptr) {
         LOG("Error: Failed to create ballistic solver");
         return 1;
