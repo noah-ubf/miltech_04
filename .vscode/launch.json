@@ -156,10 +156,11 @@
       "request": "launch",
       "program": "${workspaceFolder}/build/debug/homework_07/calc_ballistics_hw7",
       "args": [
-        "${workspaceFolder}/homework_07/data/10_extreme/config.json",
+        // folders:  1_basic  2_elliptical  3_8shape  4_stars  5_complex  6_fast_drone  7_heavy_ammo  8_gliding  9_cardioids  10_extreme
+        "${workspaceFolder}/homework_07/data/2_elliptical/config.json",
         "${workspaceFolder}/homework_07/data/ammo_09.json",
-        "${workspaceFolder}/homework_07/data/10_extreme/targets.json",
-        "${workspaceFolder}/homework_07/data/10_extreme/simulation_09.json",
+        "${workspaceFolder}/homework_07/data/2_elliptical/targets.json",
+        "${workspaceFolder}/homework_07/data/2_elliptical/simulation_09.json",
         "${workspaceFolder}/homework_07/data/ballistic_table.txt"
       ],
       "stopAtEntry": false,

@@ -3,12 +3,11 @@
 
 #include <vector>
 #include <fstream>
-#include "basics/drone.hpp"
+#include "basics/drone_context.hpp"
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/config_loader.hpp"
 #include "basics/coord.hpp"
 #include "basics/target.hpp"
-#include "basics/drone.hpp"
 
 namespace miltech04 {
 
@@ -75,13 +74,11 @@ class BallisticTableSolver : public IBallisticSolver {
     BallisticTable table;
     void init(std::string param);
     Coord calcPredictedTarget(const Coord& targetPos, const Coord& targetV) const ;
-    // double getTimeToFirePointFromStopped(const SimStep& drone, const Coord& target) const;
-    // double getTimeToFirePoint(const SimStep& drone, const Coord target) const;
     Result lookup(double Z0, double V0) const;
 public:
     BallisticTableSolver(IConfigLoader* configSource, std::string param = "");
     virtual bool isValid() override;
-    virtual Solution solve(const Drone& drone, const Target& target) const override;
+    virtual Solution solve(const DroneContext& drone, const Target& target) const override;
     virtual ~BallisticTableSolver() override = default;
 };
 

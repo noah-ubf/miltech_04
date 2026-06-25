@@ -3,23 +3,19 @@
 
 #include "basics/coord.hpp"
 #include "interfaces/config_loader.hpp"
+#include "basics/drone_state_enum.hpp"
 
 namespace miltech04 {
 
-enum DroneState {
-    STOPPED,
-    ACCELERATING,
-    DECELERATING,
-    TURNING,
-    MOVING
-};
-
-struct Drone {
+struct DroneContext {
+    bool isFinished = false;
+    IConfigLoader* config;
     Coord pos;
     double speed;
     float direction;
     double fireDistance;
-    DroneState state;
+    EDroneState state;
+    std::string stateName;
     int   targetIdx;
     Coord dropPoint;
     Coord aimPoint;
@@ -27,8 +23,6 @@ struct Drone {
 
     double getTimeToFirePointFromStopped(IConfigLoader* config, const Coord& target) const;
     double getTimeToFirePoint(IConfigLoader* config, const Coord& target) const;
-    Drone move(IConfigLoader* config, const Coord& target) const;
-
 };
 
 } // namespace miltech04

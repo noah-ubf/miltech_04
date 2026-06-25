@@ -13,10 +13,6 @@
   #define DEBUG(msg)
 #endif
 
-#ifdef ENABLE_DEBUG
-    const std::string STATE_NAMES[5] = {"STOPPED", "ACCELERATING", "DECELERATING", "TURNING", "MOVING"};
-#endif
-
 namespace miltech04 {
 
 double addAngles(double angle, double increment);

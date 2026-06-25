@@ -4,7 +4,7 @@
 #include <string>
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/config_loader.hpp"
-#include "basics/drone.hpp"
+#include "basics/drone_context.hpp"
 #include "basics/target.hpp"
 
 struct Coord;
@@ -24,7 +24,7 @@ class AnalyticalSolver : public IBallisticSolver {
 public:
     AnalyticalSolver(IConfigLoader* configSource, std::string param);
     virtual bool isValid() override;
-    virtual Solution solve(const Drone& drone, const Target& target) const override;
+    virtual Solution solve(const DroneContext& drone, const Target& target) const override;
     virtual ~AnalyticalSolver() override = default;
 };
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "basics/sim_step.hpp"
+#include "basics/drone_context.hpp"
 
 namespace miltech04 {
 
@@ -12,7 +13,7 @@ class SimulationResults {
     std::vector<SimStep> steps;
 public:
     SimulationResults(int maxCount);
-    bool push(const Drone& step);
+    bool push(const DroneContext& step);
     bool save(const std::string& filename);
     ~SimulationResults() = default;
 };

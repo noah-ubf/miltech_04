@@ -1,5 +1,5 @@
 #include <fstream>
-#include "basics/drone.hpp"
+#include "basics/drone_context.hpp"
 #include "basics/coord.hpp"
 #include "basics/sim_step.hpp"
 #include "basics/simulation.hpp"
@@ -14,22 +14,23 @@ SimulationResults::SimulationResults(int maxCount) {
     maxStepsCount = maxCount;
 }
 
-bool SimulationResults::push(const Drone& step) {
+bool SimulationResults::push(const DroneContext& ctx) {
     if (steps.size() >= maxStepsCount) {
         LOG("Error: Maximum steps count reached");
         return false;
     }
     SimStep item = {};
-    item.pos = step.pos;
-    item.direction = step.direction;
-    item.state = step.state;
-    item.targetIdx = step.targetIdx;
-    item.dropPoint = step.dropPoint;
-    item.aimPoint = step.aimPoint;
-    item.predictedTarget = step.predictedTarget;
+    item.pos = ctx.pos;
+    item.direction = ctx.direction;
+    item.state = ctx.state;
+    item.stateName = ctx.stateName;
+    item.targetIdx = ctx.targetIdx;
+    item.dropPoint = ctx.dropPoint;
+    item.aimPoint = ctx.aimPoint;
+    item.predictedTarget = ctx.predictedTarget;
 
     steps.push_back(item);
-    return true;
+    return !ctx.isFinished;
 }
 
 bool SimulationResults::save(const std::string& filename) {
@@ -42,7 +43,7 @@ bool SimulationResults::save(const std::string& filename) {
         step["direction"]       = s.direction;
         step["state"]           = s.state;
         #ifdef ENABLE_DEBUG
-            step["stateName"]       = STATE_NAMES[s.state];
+            step["stateName"]       = s.stateName;
         #endif
         step["targetIndex"]     = s.targetIdx;
         step["dropPoint"]       = {{"x", s.dropPoint.x}, {"y", s.dropPoint.y}};

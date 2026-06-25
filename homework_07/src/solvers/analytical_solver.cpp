@@ -2,7 +2,7 @@
 
 #include "solvers/analytical_solver.hpp"
 #include "basics/util.hpp"
-#include "basics/drone.hpp"
+#include "basics/drone_context.hpp"
 
 using namespace miltech04;
 
@@ -90,14 +90,14 @@ double AnalyticalSolver::calcFireDistance() {
     return hDist;
 };
 
-Solution AnalyticalSolver::solve(const Drone& drone, const Target& target) const {
+Solution AnalyticalSolver::solve(const DroneContext& ctx, const Target& target) const {
     Solution result;
-    Coord dir = { cos(drone.direction), sin(drone.direction)};
-    result.aimPoint = drone.pos + dir * hDist;
-    const double totalTime0 = drone.getTimeToFirePoint(config, target.pos);
+    Coord dir = { cos(ctx.direction), sin(ctx.direction)};
+    result.aimPoint = ctx.pos + dir * hDist;
+    const double totalTime0 = ctx.getTimeToFirePoint(config, target.pos);
     Coord predicted = target.pos + target.velocity * (totalTime0 + flightTime);
-    result.timeToFire = drone.getTimeToFirePoint(config, predicted);
-    Coord delta = predicted - drone.pos;
+    result.timeToFire = ctx.getTimeToFirePoint(config, predicted);
+    Coord delta = predicted - ctx.pos;
     result.firePoint = predicted - delta.normalize() * hDist;
     result.predictedTarget = target.pos + target.velocity * flightTime;
     result.fireDistance = hDist;

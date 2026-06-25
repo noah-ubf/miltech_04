@@ -1,10 +1,13 @@
 #ifndef MILTECH_INCLUDE_CLASSES_MISSION_PROCESSOR_HPP
 #define MILTECH_INCLUDE_CLASSES_MISSION_PROCESSOR_HPP
 
+#include <memory>
+#include "drone_states/drone_state_stopped.hpp"
 #include "interfaces/config_loader.hpp"
 #include "interfaces/ballistic_solver.hpp"
 #include "interfaces/target_provider.hpp"
-#include "basics/drone.hpp"
+#include "basics/drone_context.hpp"
+#include "interfaces/drone_state.hpp"
 
 namespace miltech04 {
 
@@ -13,8 +16,8 @@ class MissionProcessor {
     IConfigLoader* config;
     ITargetProvider* targetProvider;
     int stepNum = 0;
-    Drone currentStep;
-    Drone moveDrone();
+    DroneContext ctx;
+    std::unique_ptr<IDroneState> state = std::make_unique<DroneStateStopped>();
 public:
     MissionProcessor(IConfigLoader* configSource, IBallisticSolver* ballisticSolver, ITargetProvider* targets);
     virtual ~MissionProcessor() = default;
@@ -22,7 +25,7 @@ public:
     virtual void setTargetProvider(ITargetProvider* provider);
     virtual void changeSolver(IBallisticSolver* ballisticSolver);
     virtual bool hasNext();
-    virtual Drone step();
+    virtual DroneContext step();
     virtual void reset();
 };
 
