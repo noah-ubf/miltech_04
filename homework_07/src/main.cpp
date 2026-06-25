@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include "basics/const.hpp"
 #include "basics/util.hpp"
 #include "config/factory.hpp"
 #include "interfaces/config_loader.hpp"
@@ -14,34 +15,33 @@ using namespace miltech04;
 
 int main(int argc, char** argv)
 {
-    if (argc != 5) {
-        std::cout << "Usage: " << argv[0] << " <config_file> <ammo_file> <targets_file> <output_file>" << std::endl;  // NOLINT(*-pointer-arithmetic)
+    if (argc != 5 && argc != 6) {
+        std::cout << "Usage: " << argv[0] << " <config_file> <ammo_file> <targets_file> <output_file> [solver_param]" << std::endl;  // NOLINT(*-pointer-arithmetic)
+        std::cout << "If [solver_param] is provided, the table-based solver will be used." << std::endl;
+        std::cout << "If [solver_param] is empty, the analytical solver will be used." << std::endl;
         return 1;
     }
 
-    IConfigLoader* configLoader = createLoader(LoaderType::FILE, argv[1], argv[2]);
+    std::unique_ptr<IConfigLoader> configLoader = createLoader(LoaderType::FILE, argv[1], argv[2]);
     if (configLoader == nullptr) {
         LOG("Error: Failed to create config loader");
         return 1;
     }
 
-    ITargetProvider* targetProvider = createProvider(ProviderType::JSON, argv[3]);
+    std::unique_ptr<ITargetProvider> targetProvider = createProvider(ProviderType::JSON, argv[3]);
     if (targetProvider == nullptr) {
         LOG("Error: Failed to create target provider");
-        delete configLoader;
         return 1;
     }
 
-    IBallisticSolver* solver = createSolver(SolverType::ANALYTICAL, configLoader);
+    std::unique_ptr<IBallisticSolver> solver = createSolver(argc == 6 ? SolverType::TABLE : SolverType::ANALYTICAL, configLoader.get(), argc == 6 ? argv[5] : "");
     if (solver == nullptr) {
         LOG("Error: Failed to create ballistic solver");
-        delete configLoader;
-        delete targetProvider;
         return 1;
     }
 
     SimulationResults simulation(MAX_STEPS);
-    MissionProcessor processor(configLoader, solver, targetProvider);
+    MissionProcessor processor(configLoader.get(), solver.get(), targetProvider.get());
 
     while (processor.hasNext()) {
         if (!simulation.push(processor.step())) break;
@@ -51,14 +51,8 @@ int main(int argc, char** argv)
 
     if (!simulation.save(argv[4])) {
         LOG("Failed to save simulation steps");
-        delete configLoader;
-        delete targetProvider;
-        delete solver;
         return 1;
     }
 
-    delete configLoader;
-    delete targetProvider;
-    delete solver;
     return 0;
 }

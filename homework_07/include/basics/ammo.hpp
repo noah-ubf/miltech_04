@@ -2,6 +2,7 @@
 #define MILTECH_INCLUDE_BASICS_AMMO_HPP
 
 #include <string>
+
 namespace miltech04 {
 
 struct AmmoParams {

@@ -3,36 +3,18 @@
 
 #include <string>
 #include <vector>
-#include "basics/coord.hpp"
-#include "util.hpp"
+#include "basics/sim_step.hpp"
 
 namespace miltech04 {
 
-enum DroneState {
-    STOPPED,
-    ACCELERATING,
-    DECELERATING,
-    TURNING,
-    MOVING
-};
-
-struct SimStep {
-    Coord pos;
-    double speed;
-    float direction;
-    DroneState state;
-    int   targetIdx;
-    Coord dropPoint;
-    Coord aimPoint;
-    Coord predictedTarget;
-};
+struct DroneContext;
 
 class SimulationResults {
     int maxStepsCount;
     std::vector<SimStep> steps;
 public:
     SimulationResults(int maxCount);
-    bool push(const SimStep& step);
+    bool push(const DroneContext& step);
     bool save(const std::string& filename);
     ~SimulationResults() = default;
 };
