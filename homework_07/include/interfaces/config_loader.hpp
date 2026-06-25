@@ -1,8 +1,8 @@
 #ifndef MILTECH_INCLUDE_INTERFACES_CONFIG_LOADER_HPP
 #define MILTECH_INCLUDE_INTERFACES_CONFIG_LOADER_HPP
 
-#include "../basics/drone_config.hpp"
-#include "../basics/ammo.hpp"
+#include "basics/drone_config.hpp"
+#include "basics/ammo.hpp"
 
 namespace miltech04 {
 

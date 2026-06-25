@@ -1,10 +1,11 @@
 #ifndef MILTECH_INCLUDE_BASICS_AMMO_HPP
 #define MILTECH_INCLUDE_BASICS_AMMO_HPP
 
+#include <string>
 namespace miltech04 {
 
 struct AmmoParams {
-    char name[32];
+    std::string name;
     float mass;
     float drag;
     float lift;

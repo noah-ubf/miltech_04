@@ -1,14 +1,13 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
-#include "../include/util.hpp"
-#include "../include/fabric.hpp"
-#include "../include/interfaces/config_loader.hpp"
-#include "../include/interfaces/target_provider.hpp"
-#include "../include/interfaces/ballistic_solver.hpp"
-#include "../include/classes/mission_processor.hpp"
-#include "../include/basics/simulation.hpp"
-#include "../include/fabric.hpp"
+#include "basics/util.hpp"
+#include "config/factory.hpp"
+#include "interfaces/config_loader.hpp"
+#include "interfaces/target_provider.hpp"
+#include "interfaces/ballistic_solver.hpp"
+#include "mission_processor.hpp"
+#include "basics/simulation.hpp"
 
 using namespace std;
 using namespace miltech04;
@@ -26,21 +25,10 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    if (!configLoader->load()) {
-        delete configLoader;
-        return 1;
-    }
-
     ITargetProvider* targetProvider = createProvider(ProviderType::JSON, argv[3]);
     if (targetProvider == nullptr) {
         LOG("Error: Failed to create target provider");
         delete configLoader;
-        return 1;
-    }
-
-    if (!targetProvider->isLoaded()) {
-        delete configLoader;
-        delete targetProvider;
         return 1;
     }
 
@@ -49,14 +37,6 @@ int main(int argc, char** argv)
         LOG("Error: Failed to create ballistic solver");
         delete configLoader;
         delete targetProvider;
-        return 1;
-    }
-
-    if (!solver->isValid()) {
-        LOG("Error: Ballistic solver is not valid");
-        delete configLoader;
-        delete targetProvider;
-        delete solver;
         return 1;
     }
 

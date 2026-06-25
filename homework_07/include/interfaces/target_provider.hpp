@@ -1,7 +1,7 @@
 #ifndef MILTECH_INCLUDE_INTERFACES_TARGET_PROVIDER_HPP
 #define MILTECH_INCLUDE_INTERFACES_TARGET_PROVIDER_HPP
 
-#include "../basics/target.hpp"
+#include "basics/target.hpp"
 
 namespace miltech04 {
 

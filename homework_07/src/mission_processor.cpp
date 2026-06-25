@@ -1,8 +1,8 @@
-#include "../include/classes/mission_processor.hpp"
-#include "../include/interfaces/config_loader.hpp"
-#include "../include/interfaces/ballistic_solver.hpp"
-#include "../include/const.hpp"
-#include "../include/util.hpp"
+#include "mission_processor.hpp"
+#include "interfaces/config_loader.hpp"
+#include "interfaces/ballistic_solver.hpp"
+#include "basics/const.hpp"
+#include "basics/util.hpp"
 #include "basics/simulation.hpp"
 
 using namespace miltech04;

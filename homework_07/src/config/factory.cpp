@@ -1,0 +1,67 @@
+#include "config/factory.hpp"
+#include "interfaces/config_loader.hpp"
+#include "interfaces/target_provider.hpp"
+#include "interfaces/ballistic_solver.hpp"
+#include "config/file_config_loader.hpp"
+#include "providers/json_target_provider.hpp"
+#include "solvers/analytical_solver.hpp"
+
+using namespace miltech04;
+
+namespace miltech04 {
+
+IConfigLoader* createLoader(const LoaderType type, const std::string& configSource, const std::string& ammoSource) {
+    IConfigLoader* loader = nullptr;
+    switch (type) {
+        case LoaderType::FILE:
+            loader = new FileConfigLoader(configSource, ammoSource);
+            break;
+        default:
+            return nullptr;
+    }
+ 
+    if (!loader->load()) {
+        delete loader;
+        return nullptr;
+    }
+ 
+    return loader;
+}
+
+ITargetProvider* createProvider(const ProviderType type, const std::string& targetsSource) {
+    ITargetProvider* provider = nullptr;
+    switch (type) {
+        case ProviderType::JSON:
+            provider = new JsonTargetProvider(targetsSource);
+            break;
+        default:
+            return nullptr;
+    }
+
+    if (!provider->isLoaded()) {
+        delete provider;
+        return nullptr;
+    }
+
+    return provider;
+}
+
+IBallisticSolver* createSolver(const SolverType type, IConfigLoader* configLoader) {
+    IBallisticSolver* solver = nullptr;
+    switch (type) {
+        case SolverType::ANALYTICAL:
+            solver = new AnalyticalSolver(configLoader);
+            break;
+        default:
+            return nullptr;
+    }
+
+    if (!solver->isValid()) {
+        delete solver;
+        return nullptr;
+    }
+
+    return solver;
+};
+
+} // namespace miltech04

@@ -1,8 +1,10 @@
 #ifndef MILTECH_INCLUDE_BASICS_SIMULATION_HPP
 #define MILTECH_INCLUDE_BASICS_SIMULATION_HPP
 
-#include "./basics/coord.hpp"
-#include "../include/util.hpp"
+#include <string>
+#include <vector>
+#include "basics/coord.hpp"
+#include "util.hpp"
 
 namespace miltech04 {
 
@@ -27,13 +29,12 @@ struct SimStep {
 
 class SimulationResults {
     int maxStepsCount;
-    int stepCount;
-    SimStep* steps;
+    std::vector<SimStep> steps;
 public:
     SimulationResults(int maxCount);
     bool push(const SimStep& step);
-    bool save(char* filename);
-    ~SimulationResults();
+    bool save(const std::string& filename);
+    ~SimulationResults() = default;
 };
 
 } // namespace miltech04
