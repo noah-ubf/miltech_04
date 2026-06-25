@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include "basics/const.hpp"
 #include "basics/util.hpp"
 #include "config/factory.hpp"
 #include "interfaces/config_loader.hpp"

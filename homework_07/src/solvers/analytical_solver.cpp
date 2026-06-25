@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "solvers/analytical_solver.hpp"
+#include "basics/const.hpp"
 #include "basics/util.hpp"
 #include "basics/drone_context.hpp"
 

@@ -8,8 +8,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_library(util src/basics/util.cpp)
 target_include_directories(util PUBLIC include)
 
+add_library(coord src/basics/coord.cpp)
+target_include_directories(coord PUBLIC include)
+
 add_library(drone src/basics/drone_context.cpp)
 target_include_directories(drone PUBLIC include)
+target_link_libraries(drone PUBLIC coord)
 
 add_library(solver src/solvers/analytical_solver.cpp)
 target_include_directories(solver PUBLIC include)
@@ -26,6 +30,7 @@ target_include_directories(loader PUBLIC include)
 
 add_library(provider src/providers/json_target_provider.cpp)
 target_include_directories(provider PUBLIC include)
+target_link_libraries(provider PUBLIC coord)
 
 add_library(factory src/config/factory.cpp)
 target_include_directories(factory PUBLIC include)
@@ -48,6 +53,7 @@ add_library(drone_states
   src/drone_states/drone_state_stopped.cpp
   src/drone_states/drone_state_turning.cpp)
 target_include_directories(drone_states PUBLIC include)
+target_link_libraries(drone_states PUBLIC coord)
 
 add_executable(calc_ballistics_hw7 src/main.cpp)
 
