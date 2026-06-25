@@ -11,6 +11,9 @@ target_include_directories(util PUBLIC include)
 add_library(coord src/basics/coord.cpp)
 target_include_directories(coord PUBLIC include)
 
+add_library(ballistic_table src/config/ballistic_table.cpp)
+target_include_directories(ballistic_table PUBLIC include)
+
 add_library(drone src/basics/drone_context.cpp)
 target_include_directories(drone PUBLIC include)
 target_link_libraries(drone PUBLIC coord)
@@ -24,6 +27,7 @@ add_library(table_solver src/solvers/ballistic_table_solver.cpp)
 target_include_directories(table_solver PUBLIC include)
 target_link_libraries(table_solver PRIVATE util)
 target_link_libraries(table_solver PRIVATE drone)
+target_link_libraries(table_solver PRIVATE ballistic_table)
 
 add_library(loader src/config/file_config_loader.cpp)
 target_include_directories(loader PUBLIC include)
