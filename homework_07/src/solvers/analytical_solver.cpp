@@ -33,7 +33,6 @@ double AnalyticalSolver::calcFlightTime() {
     const double drag = config->getAmmoParams().drag;
     const double lift = config->getAmmoParams().lift;
 
-
     double a = drag * g * mass - 2 * drag * drag * lift * attackSpeed;
     if (a == 0.f) { // a appears in denominator, so it cannot be zero
         LOG("Error: Incorrect a; no solution");
