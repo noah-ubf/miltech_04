@@ -1,11 +1,13 @@
 #ifndef MILTECH_INCLUDE_BASICS_DRONE_HPP
 #define MILTECH_INCLUDE_BASICS_DRONE_HPP
 
+#include <string>
 #include "basics/coord.hpp"
-#include "interfaces/config_loader.hpp"
 #include "basics/drone_state_enum.hpp"
 
 namespace miltech04 {
+
+class IConfigLoader;
 
 struct DroneContext {
     bool isFinished = false;

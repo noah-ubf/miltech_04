@@ -3,14 +3,15 @@
 
 #include <string>
 #include "interfaces/ballistic_solver.hpp"
-#include "interfaces/config_loader.hpp"
 #include "basics/drone_context.hpp"
 #include "basics/target.hpp"
 
-struct Coord;
-struct Target;
 
 namespace miltech04 {
+
+struct Coord;
+struct Target;
+class IConfigLoader;
 
 class AnalyticalSolver : public IBallisticSolver {
     IConfigLoader* config;

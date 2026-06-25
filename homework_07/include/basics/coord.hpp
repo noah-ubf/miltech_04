@@ -1,8 +1,6 @@
 #ifndef MILTECH_INCLUDE_BASICS_COORD_HPP
 #define MILTECH_INCLUDE_BASICS_COORD_HPP
 
-#include <cmath>
-
 namespace miltech04 {
 
 struct Coord {

@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include "interfaces/config_loader.hpp"
 #include "solvers/analytical_solver.hpp"
 #include "basics/const.hpp"
 #include "basics/util.hpp"

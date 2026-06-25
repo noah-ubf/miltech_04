@@ -1,6 +1,8 @@
+#include <cmath>
 #include <memory>
 #include "basics/drone_context.hpp"
 #include "basics/util.hpp"
+#include "interfaces/config_loader.hpp"
 #include "interfaces/drone_state.hpp"
 #include "drone_states/drone_state_turning.hpp"
 #include "drone_states/drone_state_stopped.hpp"

@@ -1,10 +1,11 @@
 #ifndef MILTECH_INCLUDE_INTERFACES_BALLISTIC_SOLVER_HPP
 #define MILTECH_INCLUDE_INTERFACES_BALLISTIC_SOLVER_HPP
 
-#include "basics/drone_context.hpp"
 #include "basics/target.hpp"
 
 namespace miltech04 {
+
+struct DroneContext;
 
 struct Solution {
     Coord aimPoint;

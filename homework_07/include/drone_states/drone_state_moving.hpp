@@ -3,9 +3,10 @@
 
 #include <memory>
 #include "interfaces/drone_state.hpp"
-#include "basics/drone_context.hpp"
 
 namespace miltech04 {
+
+struct DroneContext;
 
 class DroneStateMoving : public IDroneState {
 public:

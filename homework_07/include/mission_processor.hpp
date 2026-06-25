@@ -3,13 +3,14 @@
 
 #include <memory>
 #include "drone_states/drone_state_stopped.hpp"
-#include "interfaces/config_loader.hpp"
-#include "interfaces/ballistic_solver.hpp"
-#include "interfaces/target_provider.hpp"
 #include "basics/drone_context.hpp"
-#include "interfaces/drone_state.hpp"
 
 namespace miltech04 {
+
+class IDroneState;
+class IBallisticSolver;
+class IConfigLoader;
+class ITargetProvider;
 
 class MissionProcessor {
     IBallisticSolver* solver;

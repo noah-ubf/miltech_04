@@ -2,10 +2,11 @@
 #define MILTECH04_DRONESTATE_DECELERATING_HPP
 
 #include <memory>
-#include "basics/drone_context.hpp"
 #include "interfaces/drone_state.hpp"
 
 namespace miltech04 {
+
+struct DroneContext;
 
 class DroneStateDecelerating : public IDroneState {
 public:

@@ -1,3 +1,4 @@
+#include <cmath>
 #include "basics/coord.hpp"
 #include "basics/target.hpp"
 #include "basics/drone_context.hpp"

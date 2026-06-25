@@ -2,10 +2,11 @@
 #define MILTECH04_DRONESTATE_TURNING_HPP
 
 #include <memory>
-#include "basics/drone_context.hpp"
 #include "interfaces/drone_state.hpp"
 
 namespace miltech04 {
+
+struct DroneContext;
 
 class DroneStateTurning : public IDroneState {
 public:

@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 #include "basics/sim_step.hpp"
-#include "basics/drone_context.hpp"
 
 namespace miltech04 {
+
+struct DroneContext;
 
 class SimulationResults {
     int maxStepsCount;

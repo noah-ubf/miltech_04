@@ -2,10 +2,11 @@
 #define MILTECH04_IDRONESTATE_HPP
 
 #include <memory>
-#include "basics/drone_context.hpp"
 #include "basics/drone_state_enum.hpp"
 
 namespace miltech04 {
+
+struct DroneContext;
 
 class IDroneState {
 public:

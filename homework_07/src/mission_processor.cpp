@@ -3,6 +3,7 @@
 #include "basics/drone_state_enum.hpp"
 #include "drone_states/drone_state_stopped.hpp"
 #include "interfaces/config_loader.hpp"
+#include "interfaces/target_provider.hpp"
 #include "interfaces/ballistic_solver.hpp"
 #include "basics/const.hpp"
 #include "basics/drone_context.hpp"

@@ -3,11 +3,12 @@
 
 #include <string>
 #include <memory>
-#include "interfaces/config_loader.hpp"
-#include "interfaces/target_provider.hpp"
-#include "interfaces/ballistic_solver.hpp"
 
 namespace miltech04 {
+
+class IConfigLoader;
+class ITargetProvider;
+class IBallisticSolver;
 
 enum class SolverType   { ANALYTICAL, TABLE };
 enum class ProviderType { JSON };
